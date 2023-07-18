@@ -1,0 +1,15 @@
+.main {
+	margin: 0 auto;
+	padding: 0 16px;
+	width: 100%;
+	max-width: 1200px;
+	min-width: 360px;
+}
+
+.main__container {
+	padding: 16px;
+	min-height: 600px;
+	border: 1px solid #12ace4;
+	border-radius: 0 4px 4px 4px;
+	background-color: #76d2f4;
+}

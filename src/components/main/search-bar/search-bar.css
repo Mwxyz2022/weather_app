@@ -1,0 +1,37 @@
+.search__container {
+	position: relative;
+	min-width: 230px;
+	max-width: 450px;
+	width: 100%;
+}
+
+.search-input {
+	padding: 4px;
+	font-size: 16px;
+	font-weight: 400;
+	width: 100%;
+}
+
+.search-list {
+	list-style-type: none;
+	position: absolute;
+	width: 100%;
+}
+
+.list-item {
+	display: flex;
+	justify-content: space-between;
+	padding: 4px;
+	font-weight: 400;
+	background-color: white;
+	border-bottom: 1px solid rgb(238, 237, 237);
+	cursor: pointer;
+}
+
+.list-item:last-child {
+	border-bottom: none;
+}
+
+.list-item:hover {
+	background-color: rgb(235, 235, 235);
+}
