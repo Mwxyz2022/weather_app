@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
-import { useTranslation } from 'react-i18next'
 import SearchBar from './search-bar/SearchBar'
 
+import { CitiesContext } from '../../context/CitiesContext'
+import { initCities } from '../../utils/cities'
+import CardsContainer from './cards/CardsContainer'
+import CitiesList from './cities-list/CitiesList'
 import './main.css'
 
 const Main: FC = () => {
-	const { t } = useTranslation()
+	const [storedCities, setStoredCities] = useState(initCities())
 
 	return (
-		<>
+		<CitiesContext.Provider value={{ storedCities, setStoredCities }}>
 			<section className='upper__container'>
 				<SearchBar />
-				<button style={{ marginLeft: 16 }}>{t('to_favorites')}</button>
+				<CitiesList />
 			</section>
-		</>
+
+			<CardsContainer />
+		</CitiesContext.Provider>
 	)
 }
 

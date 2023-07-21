@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import logo from '../../assets/logo.png'
 
@@ -9,6 +9,9 @@ import { useTranslation } from 'react-i18next'
 
 const Header: FC = () => {
 	const { t, i18n } = useTranslation()
+	const { pathname } = useLocation()
+
+	const isFavPage = pathname.split('/')[1] === 'favorites'
 
 	const [language, setLanguage] = useState<string>('ua')
 
@@ -29,18 +32,12 @@ const Header: FC = () => {
 			</section>
 
 			<nav className='navigation'>
-				<NavLink
-					className={({ isActive }) => (isActive ? 'link active' : 'link')}
-					to='/'
-				>
+				<Link className={isFavPage ? 'link' : 'link active'} to='/'>
 					{t('main')}
-				</NavLink>
-				<NavLink
-					className={({ isActive }) => (isActive ? 'link active' : 'link')}
-					to='/favorites'
-				>
+				</Link>
+				<Link className={!isFavPage ? 'link' : 'link active'} to='/favorites'>
 					{t('favorites')}
-				</NavLink>
+				</Link>
 			</nav>
 		</header>
 	)

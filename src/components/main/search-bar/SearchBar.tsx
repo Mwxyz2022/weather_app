@@ -1,14 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ChangeEvent, FC, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useNavigate } from 'react-router-dom'
 import { WeatherService } from '../../../api/weather.service'
+import { CitiesContext } from '../../../context/CitiesContext'
 import { tempConvert } from '../../../utils/temp'
 import './search-bar.css'
 
 const SearchBar: FC = () => {
 	const { t } = useTranslation()
+	const navigate = useNavigate()
+
+	const { setStoredCities } = useContext(CitiesContext)
+
 	const [value, setValue] = useState<string>('')
+
 	const [search, setSearch] = useState<string>('')
 
 	const [cities, setCities] = useState([])
@@ -39,7 +46,6 @@ const SearchBar: FC = () => {
 	const selectCityHandler = (city: any) => {
 		const storageData = localStorage.getItem('cities')
 		const storageCities = storageData ? JSON.parse(storageData) : []
-
 		if (storageCities.length === 5) {
 			clearInput()
 			return
@@ -49,11 +55,17 @@ const SearchBar: FC = () => {
 			(storageCity: any) => storageCity.id !== city.id
 		)
 
-		const newStorageCities = JSON.stringify([...uniqCities, city])
+		const newStorageCities = [...uniqCities, city]
 
-		localStorage.setItem('cities', newStorageCities)
-
+		try {
+			window.localStorage.setItem('cities', JSON.stringify(newStorageCities))
+			setStoredCities(newStorageCities)
+		} catch (error) {
+			console.log(error)
+		}
 		clearInput()
+
+		navigate(`/city/${city.id}`)
 	}
 
 	useEffect(() => {
@@ -82,7 +94,6 @@ const SearchBar: FC = () => {
 			{!!cities.length && (
 				<ul className='search-list'>
 					{cities.map((city: any) => {
-						console.log(city)
 						return (
 							<li
 								key={city.id}
