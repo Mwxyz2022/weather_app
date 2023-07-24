@@ -1,6 +1,24 @@
 {
 	"main": "Main",
 	"favorites": "Favorites",
-	"to_favorites": "To Favorites",
-	"search_ph": "Type city..."
+
+	"search_ph": "Type city...",
+
+	"day_forecast": "For 24 hours",
+	"five_day_forecast": "For 5 days",
+
+	"chart_period_hours": "Hours",
+	"chart_period_days": "Days",
+	"chart_temperature": "Temperature (°C)",
+	"chart_temperature_average": "Average temperature (°C)",
+
+	"no_city_list_title": "No cities to track the weather! 🙁",
+	"no_city_list_description": "To add a city:",
+	"no_city_list_item_link": "👉 go to the main page 📜",
+	"no_city_list_item_choose_city": "choose a city 🏰",
+	"no_city_list_item_click_star": "click on the star 👉⭐",
+
+	"not_found": "404 - Not Found",
+	"does_not_exist": "The page you are looking for does not exist.",
+	"redirecting_to_the_three_sec": "Redirecting to the 🏡 page in 3 seconds..."
 }

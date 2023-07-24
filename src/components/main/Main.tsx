@@ -1,26 +1,64 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useState } from 'react'
+import { FC, useContext, useEffect } from 'react'
 
 import SearchBar from './search-bar/SearchBar'
 
-import { CitiesContext } from '../../context/CitiesContext'
-import { initCities } from '../../utils/cities'
+import { useNavigate, useParams } from 'react-router-dom'
+import { AppContext } from '../../context/AppContext'
+import { useGeolocation } from '../../hooks/useGeolocation'
+import {
+	findCityWithName,
+	getCityName,
+	putToStorage
+} from '../../utils/city.helper'
+import { findClosestCity } from '../../utils/closest-city'
 import CardsContainer from './cards/CardsContainer'
-import CitiesList from './cities-list/CitiesList'
 import './main.css'
 
 const Main: FC = () => {
-	const [storedCities, setStoredCities] = useState(initCities())
+	const { loaded, coordinates } = useGeolocation()
+	const { storedCities, setStoredCities } = useContext(AppContext)
+	const { cityId } = useParams()
+	const navigate = useNavigate()
+
+	const navigateToFirst = () => {
+		const firstCityTab = storedCities[0]
+		const cityTabId = firstCityTab?.id
+		navigate(`/city/${cityTabId}`)
+	}
+
+	useEffect(() => {
+		if (storedCities.length && !cityId) {
+			navigateToFirst()
+		}
+	}, [cityId])
+
+	useEffect(() => {
+		if (!storedCities.length && loaded) {
+			const lat = coordinates.lat
+			const lon = coordinates.lon
+			;(async () => {
+				const cityName = await getCityName(coordinates.lat, coordinates.lon)
+
+				const citiesList = await findCityWithName(cityName)
+
+				const closestCity = findClosestCity(citiesList.list, lat, lon)
+
+				await putToStorage([closestCity], 'cities')
+
+				setStoredCities([closestCity])
+				navigateToFirst()
+			})()
+		}
+	}, [loaded])
 
 	return (
-		<CitiesContext.Provider value={{ storedCities, setStoredCities }}>
+		<>
 			<section className='upper__container'>
 				<SearchBar />
-				<CitiesList />
 			</section>
 
 			<CardsContainer />
-		</CitiesContext.Provider>
+		</>
 	)
 }
 

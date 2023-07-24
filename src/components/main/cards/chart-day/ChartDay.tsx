@@ -1,30 +1,27 @@
 import { ChartOptions } from 'chart.js'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { WeatherData } from '../../../../types/response-types'
-import {
-	ChartFormItem,
-	transformWeatherData,
-} from '../../../../utils/transformWeaterData'
+import { useTranslation } from 'react-i18next'
+import { ChartFormItem } from '../../../../utils/transformWeaterData'
 
 interface IChartDayProps {
-	cardInfo: WeatherData
+	cardInfo: any
 }
 
 const ChartDay: React.FC<IChartDayProps> = ({ cardInfo }) => {
 	const [chartKey, setChartKey] = useState(Math.random())
-	const { hourly } = transformWeatherData(cardInfo)
+	const { t } = useTranslation()
 
 	const data = {
-		labels: hourly.map((item: ChartFormItem) => item.period),
+		labels: cardInfo.map((item: ChartFormItem) => item.period),
 		datasets: [
 			{
 				label: 'Temperature',
-				data: hourly.map((item: ChartFormItem) => item.temp),
+				data: cardInfo.map((item: ChartFormItem) => item.temp),
 				borderColor: 'rgb(75, 192, 192)',
-				fill: false,
-			},
-		],
+				fill: false
+			}
+		]
 	}
 
 	const options: ChartOptions<'line'> = {
@@ -32,18 +29,18 @@ const ChartDay: React.FC<IChartDayProps> = ({ cardInfo }) => {
 			x: {
 				title: {
 					display: true,
-					text: 'Time (Hours)',
-				},
+					text: t('chart_period_hours')
+				}
 			},
 			y: {
 				title: {
 					display: true,
-					text: 'Temperature (°C)',
-				},
-			},
+					text: t('chart_temperature')
+				}
+			}
 		},
 		responsive: true,
-		maintainAspectRatio: true,
+		maintainAspectRatio: true
 	}
 
 	useEffect(() => {

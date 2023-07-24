@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { useNavigate } from 'react-router-dom'
 import { WeatherService } from '../../../api/weather.service'
-import { CitiesContext } from '../../../context/CitiesContext'
+
+import { AppContext } from '../../../context/AppContext'
 import { tempConvert } from '../../../utils/temp'
 import './search-bar.css'
 
@@ -12,7 +13,7 @@ const SearchBar: FC = () => {
 	const { t } = useTranslation()
 	const navigate = useNavigate()
 
-	const { setStoredCities } = useContext(CitiesContext)
+	const { setStoredCities } = useContext(AppContext)
 
 	const [value, setValue] = useState<string>('')
 
@@ -46,6 +47,15 @@ const SearchBar: FC = () => {
 	const selectCityHandler = (city: any) => {
 		const storageData = localStorage.getItem('cities')
 		const storageCities = storageData ? JSON.parse(storageData) : []
+
+		const cityExists = storageCities.some(
+			(storageCity: any) => storageCity.id === city.id
+		)
+		if (cityExists) {
+			alert('this city is already on your list')
+			return
+		}
+
 		if (storageCities.length === 5) {
 			clearInput()
 			return

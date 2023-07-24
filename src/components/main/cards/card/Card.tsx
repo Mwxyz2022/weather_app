@@ -1,41 +1,56 @@
 import { FC, useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { initCardInfo } from '../../../../utils/cities'
-
-import moment from 'moment'
-import { WeatherService } from '../../../../api/weather.service'
-import { CitiesContext } from '../../../../context/CitiesContext'
-import { describeWindSpeed } from '../../../../utils/wind-speed'
 
 import arrow from '../../../../assets/img/arrow.svg'
 import pressure from '../../../../assets/img/pressure.svg'
 
-import { degToCompass } from '../../../../utils/deg-compass'
+import { MdOutlineClose } from 'react-icons/md'
+
+import { useLocation, useNavigate } from 'react-router-dom'
+import { WeatherService } from '../../../../api/weather.service'
+import { AppContext } from '../../../../context/AppContext'
+import { getStructuredData } from '../../../../utils/parse-data/parse-data'
 import ChartDay from '../chart-day/ChartDay'
 import ChartFiveDay from '../chart-day/ChartFiveDay'
 
-import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai'
+import FavoriteButton from './favorite-button/FavoriteButton'
+
+import { useTranslation } from 'react-i18next'
 import './card.css'
 
-const Card: FC = () => {
-	const { storedCities } = useContext(CitiesContext)
+interface ICardProps {
+	initData: any
+}
+
+const Card: FC<ICardProps> = ({ initData }) => {
+	const { storedCities, setStoredCities } = useContext(AppContext)
 	const [cardLoader, setCardLoader] = useState<boolean>(true)
-	const [isDayChart, setIsDayChart] = useState<boolean>(false)
-	const { cityId } = useParams()
+	const [cardData, setCardData] = useState<any>(null)
+	const [isDayChart, setIsDayChart] = useState<boolean>(true)
 	const navigate = useNavigate()
+	const { pathname } = useLocation()
+	const { t } = useTranslation()
 
-	const init = cityId ? initCardInfo(cityId) : null
+	const isCityPage = pathname.startsWith('/city/')
 
-	const [cardInfo, setCardInfo] = useState<any>(null)
+	const { id: cityId } = initData
+	const { lat, lon } = initData.coord
+
+	const onChartHandler = () => {
+		setIsDayChart(!isDayChart)
+	}
 
 	const getWeatherInfo = async () => {
+		setCardLoader(true)
+
 		try {
 			const { data: weatherInfo } = await WeatherService.getWeatherInfo(
-				init.coord.lat,
-				init.coord.lon
+				lat,
+				lon
 			)
 
-			setCardInfo(weatherInfo)
+			const cardData = getStructuredData(weatherInfo)
+
+			setCardData(cardData)
 		} catch (error) {
 			console.error(error)
 		} finally {
@@ -43,144 +58,116 @@ const Card: FC = () => {
 		}
 	}
 
-	const name = storedCities.reduce((acc: string, city: any) => {
-		if (city.id.toString() === cityId) {
-			return `${city.name}, ${city.sys.country}`
-		}
-		return acc
-	}, '')
+	const deleteHandler = () => {
+		const citiesList = storedCities.filter(
+			(city: any) => city.id.toString() !== cityId
+		)
+		const lastCity = citiesList[citiesList.length - 1]
+		const path = lastCity ? `/city/${lastCity.id}` : '/'
 
-	const cityStorage = storedCities.find(
-		(city: any) => city.id.toString() === cityId
-	)
-	const flag = cityStorage.sys.country.toLowerCase()
+		setStoredCities(citiesList)
+		localStorage.setItem('cities', JSON.stringify(citiesList))
 
-	console.log('flag', flag)
-	console.log(cardInfo)
-
-	const onChartToggle = () => {
-		setIsDayChart(!isDayChart)
+		navigate(path)
 	}
 
 	useEffect(() => {
 		getWeatherInfo()
-	}, [cityId])
-
-	if (!init) {
-		navigate('/')
-	}
+	}, [initData])
 
 	if (cardLoader) {
-		return <div> LOADING...</div>
+		return <div> LOADING... </div>
 	}
 
-	const localTime = moment
-		.unix(cardInfo.current.dt)
-		.utcOffset(cardInfo.timezone_offset / 60)
-		.format('MMM DD, h:mmA')
-
-	let descriptionWeather = cardInfo.current.weather[0].description
-	descriptionWeather =
-		descriptionWeather.charAt(0).toUpperCase() + descriptionWeather.slice(1)
-
 	return (
-		cardInfo && (
-			<>
-				<section className='card'>
-					<div className='card__info'>
-						<div className='info'>
-							<div className='info__data'>
-								<div className='temperature'>
-									<img
-										className='temperature__icon'
-										src={`https://openweathermap.org/img/wn/${cardInfo.current.weather[0].icon}@2x.png`}
-										alt='weather icon'
-									/>
-									<span className='temperature__value'>
-										{`${Math.round(cardInfo.current.temp)}°C`}
-									</span>
-								</div>
+		cardData && (
+			<section className='card'>
+				<div className='card__info'>
+					<div className='info'>
+						<div className='info__data'>
+							<div className='temperature'>
+								<img
+									className='temperature__icon'
+									src={`https://openweathermap.org/img/wn/${cardData.iconIndex}@2x.png`}
+									alt='weather icon'
+								/>
+								<span className='temperature__value'>
+									{`${cardData.currentTemp}°C`}
+								</span>
+							</div>
+
+							{isCityPage && (
 								<div className='data__location'>
-									<p>{name}</p>
+									<p>
+										{initData.name}, {initData.sys.country}
+									</p>
 									<img
 										style={{ width: 25, marginLeft: 8 }}
-										src={`https://openweathermap.org/images/flags/${flag}.png`}
+										src={`https://openweathermap.org/images/flags/${initData.sys.country.toLowerCase()}.png`}
 										alt='flag'
 									/>
 								</div>
-							</div>
-							<button className='button__favorite'>
-								<AiOutlineStar size={30} />{' '}
-								<AiTwotoneStar size={30} style={{ color: 'orange' }} />
-							</button>
+							)}
 						</div>
 
-						<div className='details'>
-							<time className='data__date'>{localTime}</time>
-							<p className='details__feels'>
-								{`Feels like ${Math.round(
-									cardInfo.current.feels_like
-								)}°C. ${descriptionWeather}. ${describeWindSpeed(
-									cardInfo.current.wind_speed
-								)}`}
-							</p>
-
-							<div className='details__description'>
-								<div className='description__wind'>
-									<img
-										src={arrow}
-										alt='arrow wind'
-										className='wind__icon'
-										style={{
-											transform: `rotate(${cardInfo.current.wind_deg}deg)`,
-										}}
-									/>
-									<span className='wind__info'>{`${
-										Math.round(cardInfo.current.wind_speed * 10) / 10
-									}m/s ${degToCompass(cardInfo.current.wind_deg)}`}</span>
-								</div>
-								<div className='description__pressure'>
-									<img
-										src={pressure}
-										alt='pressure'
-										className='pressure__icon'
-										style={{
-											transform: `rotate(${cardInfo.current.wind_deg}deg)`,
-										}}
-									/>
-									<span className='pressure__info'>{`${cardInfo.current.pressure}hPa`}</span>
-								</div>
+						{isCityPage && (
+							<div className='actions'>
+								<FavoriteButton cityId={cityId} />
+								{storedCities.length > 1 && (
+									<button className='button__favorite' onClick={deleteHandler}>
+										<MdOutlineClose size={30} />
+									</button>
+								)}
 							</div>
-
-							<div className='details__description'>
-								<span className='description__item'>{`Humidity: ${cardInfo.current.humidity}%`}</span>
-								<span className='description__item'>{`UV: ${Math.round(
-									cardInfo.current.uvi
-								)}`}</span>
-							</div>
-
-							<div className='details__description'>
-								<span className='description__item'>{`Dew point: ${Math.round(
-									cardInfo.current.dew_point
-								)}°C`}</span>
-								<span className='description__item'>{`Visibility: ${(
-									Number(cardInfo.current.visibility) / 1000
-								).toFixed(1)}kM`}</span>
-							</div>
-						</div>
-					</div>
-					<div className='chart__container'>
-						{isDayChart ? (
-							<ChartDay cardInfo={cardInfo} />
-						) : (
-							<ChartFiveDay cardInfo={cardInfo} />
 						)}
-						<button className='info__toggler' onClick={onChartToggle}>
-							{isDayChart ? `For 5 days` : `For day`}
-						</button>
 					</div>
-				</section>
-			</>
+
+					<div className='details'>
+						<time className='data__date'>{cardData.localTime}</time>
+						<p className='details__feels'>
+							{`Feels like ${cardData.feelsLikeTemp}°C. ${cardData.descriptionWeather}. ${cardData.windSpeedString}`}
+						</p>
+
+						<div className='details__description'>
+							<div className='description__wind'>
+								<img
+									src={arrow}
+									alt='arrow wind'
+									className='wind__icon'
+									style={{
+										transform: `rotate(${cardData.windDeg}deg)`
+									}}
+								/>
+								<span className='wind__info'>{`${cardData.windSpeed}m/s ${cardData.windCompassString}`}</span>
+							</div>
+							<div className='description__pressure'>
+								<img src={pressure} alt='pressure' className='pressure__icon' />
+								<span className='pressure__info'>{`${cardData.pressure}hPa`}</span>
+							</div>
+						</div>
+
+						<div className='details__description'>
+							<span className='description__item'>{`Humidity: ${cardData.humidity}%`}</span>
+							<span className='description__item'>{`UV: ${cardData.ultraviolet}`}</span>
+						</div>
+
+						<div className='details__description'>
+							<span className='description__item'>{`Dew point: ${cardData.dewPoint}°C`}</span>
+							<span className='description__item'>{`Visibility: ${cardData.visibility}kM`}</span>
+						</div>
+					</div>
+				</div>
+				<div className='chart__container'>
+					{isDayChart ? (
+						<ChartDay cardInfo={cardData.hourlyData} />
+					) : (
+						<ChartFiveDay cardInfo={cardData.dailyData} />
+					)}
+					<button className='info__toggler' onClick={onChartHandler}>
+						{isDayChart ? t('five_day_forecast') : t('day_forecast')}
+					</button>
+				</div>
+			</section>
 		)
 	)
 }

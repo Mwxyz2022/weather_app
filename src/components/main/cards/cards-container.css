@@ -1,41 +1,36 @@
 .city-nav {
-	display: none;
+	display: flex;
+	list-style-type: none;
 }
 
-@media screen and (min-width: 899px) {
-	.city-nav {
-		display: flex;
-		list-style-type: none;
-	}
+.city-nav-item {
+	display: flex;
+	align-items: center;
+	background-color: #b3ebff;
+	border-radius: 4px 4px 0 0;
+	overflow: hidden;
+}
 
-	.city-nav-item {
-		display: flex;
-		align-items: center;
-		background-color: #b3ebff;
-		border-radius: 4px 4px 0 0;
-	}
+.city-nav-item.link-active {
+	background-color: #ffffff;
+}
 
-	.city-nav-item.link-active {
-		background-color: #ffffff;
-	}
+.city-link:active {
+	color: #f4c905;
+}
 
-	.city-link:active {
-		color: #f4c905;
-	}
+.city-link {
+	height: 100%;
+	text-decoration: none;
+	padding: 0 16px;
+	color: #551a8b;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 
-	.city-link {
-		height: 100%;
-		text-decoration: none;
-		padding: 0 16px;
-		color: #551a8b;
-	}
-
-	.delete-button {
-		font-size: 20px;
-		border-radius: 50%;
-		border-color: transparent;
-		background-color: transparent;
-		transform: rotate(45deg);
-		cursor: pointer;
-	}
+.card__wrapper {
+	padding: 16px;
+	background-color: #ffffff;
+	border-radius: 0 4px 4px 4px;
 }

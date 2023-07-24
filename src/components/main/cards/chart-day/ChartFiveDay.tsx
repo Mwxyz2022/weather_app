@@ -1,30 +1,27 @@
 import { ChartOptions } from 'chart.js'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { WeatherData } from '../../../../types/response-types'
-import {
-	ChartFormItem,
-	transformWeatherData,
-} from '../../../../utils/transformWeaterData'
+import { useTranslation } from 'react-i18next'
+import { ChartFormItem } from '../../../../utils/transformWeaterData'
 
 interface IChartFiveDayProps {
-	cardInfo: WeatherData
+	cardInfo: any
 }
 
 const ChartFiveDay: React.FC<IChartFiveDayProps> = ({ cardInfo }) => {
 	const [chartKey, setChartKey] = useState(Math.random())
-	const { daily } = transformWeatherData(cardInfo)
+	const { t } = useTranslation()
 
 	const data = {
-		labels: daily.map((item: ChartFormItem) => item.period),
+		labels: cardInfo.map((item: ChartFormItem) => item.period),
 		datasets: [
 			{
 				label: 'Temperature',
-				data: daily.map((item: ChartFormItem) => item.temp),
+				data: cardInfo.map((item: ChartFormItem) => item.temp),
 				borderColor: 'rgb(75, 192, 192)',
-				fill: false,
-			},
-		],
+				fill: false
+			}
+		]
 	}
 
 	const options: ChartOptions<'line'> = {
@@ -32,19 +29,19 @@ const ChartFiveDay: React.FC<IChartFiveDayProps> = ({ cardInfo }) => {
 			x: {
 				title: {
 					display: true,
-					text: 'Time (Day)',
-				},
+					text: t('chart_period_days')
+				}
 			},
 			y: {
 				title: {
 					display: true,
-					text: 'Average temperature (°C)',
+					text: t('chart_temperature_average')
 				},
 				ticks: {
-					stepSize: 1,
-				},
-			},
-		},
+					stepSize: 1
+				}
+			}
+		}
 	}
 
 	useEffect(() => {

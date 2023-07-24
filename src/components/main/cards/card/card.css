@@ -1,13 +1,11 @@
 .card {
 	display: flex;
 	flex-direction: row;
-	padding: 16px;
-	background-color: #ffffff;
-	border-radius: 0 4px 4px 4px;
 }
 
 .card__info {
-	min-width: 330px;
+	width: 100%;
+	max-width: 350px;
 }
 
 .chart__container {
@@ -46,7 +44,7 @@
 .info__toggler {
 	font-size: 18px;
 	padding: 8px;
-	width: 102px;
+	width: 150px;
 	border: none;
 	border-radius: 4px;
 	background-color: #b4ebff;
@@ -71,6 +69,7 @@
 
 .details__feels {
 	margin-bottom: 8px;
+	width: 100%;
 }
 
 .details__description {
@@ -94,6 +93,10 @@
 	height: 15px;
 }
 
+.actions {
+	display: flex;
+}
+
 .button__favorite {
 	border: none;
 	background-color: transparent;
@@ -106,6 +109,10 @@
 @media screen and (max-width: 900px) {
 	.card {
 		flex-direction: column;
+	}
+
+	.card__info {
+		max-width: 100%;
 	}
 
 	.chart__container {

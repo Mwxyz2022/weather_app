@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
+import NotFound from '../components/NotFound'
 import Favorites from '../components/favorites/Favorites'
 import Main from '../components/main/Main'
-import Card from '../components/main/cards/card/Card'
+import CardWrapper from '../components/main/cards/CardWrapper'
 
 const router = createBrowserRouter([
 	{
@@ -13,15 +14,19 @@ const router = createBrowserRouter([
 				path: '/',
 				element: <Main />,
 				children: [
-					{ path: '/city/:cityId', element: <Card key='/city/:cityId' /> },
-				],
+					{
+						path: '/city/:cityId',
+						element: <CardWrapper key='/city/:cityId' />
+					}
+				]
 			},
 			{
 				path: '/favorites',
-				element: <Favorites />,
+				element: <Favorites />
 			},
-		],
-	},
+			{ path: '*', element: <NotFound /> }
+		]
+	}
 ])
 
 export default router
