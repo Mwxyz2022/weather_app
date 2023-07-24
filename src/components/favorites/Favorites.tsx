@@ -27,7 +27,7 @@ const Favorites: FC = () => {
 					<ol className='no-cities__list'>
 						<li className='no-cities__list-item'>
 							<Link className='no-cities__link' to='/'>
-								{t('no_city_list_item_link')}
+								{t('no_city_list_item_link')}asdsadasfda
 							</Link>
 						</li>
 						<li className='no-cities__list-item'>
