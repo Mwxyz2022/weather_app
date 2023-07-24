@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './components/header/Header'
 
 import './assets/app.css'
+
 import { AppContext } from './context/AppContext'
 import { initCities } from './utils/local-storage/cities'
 import { initFavorites } from './utils/local-storage/favorites'
@@ -18,7 +19,7 @@ const App: FC = () => {
 				storedCities,
 				setStoredCities,
 				favoriteCities,
-				setFavoriteCities,
+				setFavoriteCities
 			}}
 		>
 			<Header />
@@ -27,6 +28,7 @@ const App: FC = () => {
 					<Outlet />
 				</section>
 			</main>
+			<div id='modal-root'></div>
 		</AppContext.Provider>
 	)
 }
