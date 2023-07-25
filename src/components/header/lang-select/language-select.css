@@ -3,16 +3,10 @@
 	display: flex;
 	align-items: center;
 	height: 40px;
-	width: 60px;
 	background-color: #76d2f4;
 	border: 2px solid #3aaad3;
 	border-radius: 10px;
 	transition: width 0.5s ease-out;
-}
-
-.lang__container:hover {
-	display: flex;
-	justify-content: space-evenly;
 }
 
 .lang__button {
@@ -42,12 +36,7 @@
 		rgba(174, 233, 75, 0.258140756302521) 22%,
 		rgba(0, 212, 255, 0.1825105042016807) 100%
 	);
-
 	z-index: 1;
-}
-
-.lang__button.current-lang {
-	margin-left: 8px;
 }
 
 .lang__button.select-lang {

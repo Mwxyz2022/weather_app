@@ -34,7 +34,10 @@ const LanguageSelect: FC = () => {
 			className='lang__container'
 			onMouseEnter={() => setIsShowAllLang(true)}
 			onMouseLeave={() => setIsShowAllLang(false)}
-			style={{ width: isShowAllLang ? 120 : 60 }}
+			style={{
+				justifyContent: isShowAllLang ? 'space-evenly' : 'center',
+				width: isShowAllLang ? 120 : 60
+			}}
 		>
 			{isShowAllLang && (
 				<>
@@ -42,6 +45,7 @@ const LanguageSelect: FC = () => {
 						.filter(item => item !== currentLang)
 						.map(item => (
 							<button
+								key={item}
 								className='lang__button select-lang'
 								style={{
 									backgroundImage: `url(${langImage[item]})`
@@ -58,6 +62,7 @@ const LanguageSelect: FC = () => {
 				style={{
 					backgroundImage: `url(${langImage[currentLang]})`
 				}}
+				onClick={() => setIsShowAllLang(isShowAllLang ? false : true)}
 			>
 				<div className='button__gradient'></div>
 			</button>
