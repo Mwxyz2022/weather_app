@@ -1,0 +1,82 @@
+.lang__container {
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	height: 40px;
+	width: 60px;
+	background-color: #76d2f4;
+	border: 2px solid #3aaad3;
+	border-radius: 10px;
+	transition: width 0.5s ease-out;
+}
+
+.lang__container:hover {
+	display: flex;
+	justify-content: space-evenly;
+	width: 120px;
+}
+
+.lang__button {
+	position: relative;
+	width: 40px;
+	height: 24px;
+	border-radius: 4px;
+	background-size: cover;
+	border: none;
+	cursor: pointer;
+}
+
+.lang__button:hover {
+	box-shadow: 0 0 10px rgba(29, 20, 20, 0.356);
+}
+
+.button__gradient {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+	background: linear-gradient(
+		90deg,
+		rgba(10, 96, 139, 0.10688025210084029) 3%,
+		rgba(174, 233, 75, 0.258140756302521) 22%,
+		rgba(0, 212, 255, 0.1825105042016807) 100%
+	);
+
+	z-index: 1;
+}
+
+.lang__button.current-lang {
+	margin-left: 8px;
+}
+
+.lang__button.select-lang {
+	animation: showButton 0.5s ease-out;
+}
+
+.lang__button.select-lang:active {
+	animation: pushButton 0.2s ease-out;
+}
+
+@keyframes showButton {
+	from {
+		transform: scale(0.7);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes pushButton {
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: scale(0.8);
+		opacity: 0.8;
+	}
+}

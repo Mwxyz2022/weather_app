@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { initLanguage } from '../utils/local-storage/init-storage'
 
 import common_en from './en.json'
-import common_uk from './uk.json'
+import common_ua from './ua.json'
 
 const i18n = i18next.createInstance(
 	{
@@ -17,8 +17,8 @@ const i18n = i18next.createInstance(
 			en: {
 				common: common_en
 			},
-			uk: {
-				common: common_uk
+			ua: {
+				common: common_ua
 			}
 		}
 	},
