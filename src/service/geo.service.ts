@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 
-import { geoApi } from './api'
+import { geoApi } from '../api/api'
 
 const appid = process.env.REACT_APP_GEO_KEY
 

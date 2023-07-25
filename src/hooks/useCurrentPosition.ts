@@ -3,8 +3,8 @@ import { useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AppContext } from '../context/AppContext'
+import { findCityWithName, getCityName } from '../helpers/city.helper'
 import { AppContextValue } from '../types/types'
-import { findCityWithName, getCityName } from '../utils/city.helper'
 import { findClosestCity } from '../utils/closest-city'
 
 import { useGeolocation } from './useGeolocation'

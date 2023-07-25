@@ -16,7 +16,7 @@ const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => 
 
 export const findClosestCity = (cities: ICityData[] | undefined, lat: number, lon: number) => {
 	if (!cities || cities.length === 0) {
-		return undefined
+		return
 	}
 
 	let closestCity = cities[0]

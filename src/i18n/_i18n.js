@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 
-import { initLanguage } from '../utils/init-storage'
+import { initLanguage } from '../utils/local-storage/init-storage'
 
 import common_en from './en.json'
 import common_uk from './uk.json'

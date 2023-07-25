@@ -1,8 +1,7 @@
 import { AxiosResponse } from 'axios'
 
+import { api } from '../api/api'
 import { ICityData, WeatherData } from '../types/response.types'
-
-import { api } from './api'
 
 const appid = process.env.REACT_APP_WEATHER_KEY
 

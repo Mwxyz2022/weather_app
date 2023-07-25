@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import { AppContext } from '../../context/AppContext'
 import { AppContextValue } from '../../types/types'
-import { initLanguage } from '../../utils/init-storage'
+import { initLanguage } from '../../utils/local-storage/init-storage'
 
 import './header.css'
 

@@ -1,5 +1,5 @@
-import { GeoService } from '../api/geo.service'
-import { WeatherService } from '../api/weather.service'
+import { GeoService } from '../service/geo.service'
+import { WeatherService } from '../service/weather.service'
 import { ICityData } from '../types/response.types'
 
 export const getCityName = async (lat: number, lon: number): Promise<string | undefined> => {

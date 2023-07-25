@@ -1,4 +1,4 @@
-import { ICityData } from '../types/response.types'
+import { ICityData } from '../../types/response.types'
 
 export const initCities = (): ICityData[] => {
 	try {

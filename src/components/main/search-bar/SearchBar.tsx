@@ -3,8 +3,8 @@ import { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { WeatherService } from '../../../api/weather.service'
 import { AppContext } from '../../../context/AppContext'
+import { WeatherService } from '../../../service/weather.service'
 import { ICityData } from '../../../types/response.types'
 import { AppContextValue } from '../../../types/types'
 import { tempConvert } from '../../../utils/temp'
@@ -35,8 +35,6 @@ const SearchBar: FC = () => {
 		} else if (search.length > 2) {
 			try {
 				const { data: citiesData } = await WeatherService.findByCity(search)
-
-				console.log(citiesData)
 
 				setCities(citiesData.list)
 			} catch (error) {

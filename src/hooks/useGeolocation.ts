@@ -20,7 +20,7 @@ export const useGeolocation = () => {
 	const [location, setLocation] = useState<LocationState>({
 		loaded: false,
 		// default coordinates in case tracking coordinates do not agree
-		coordinates: { lat: 46.6558, lon: 32.6178 },
+		coordinates: { lat: 46.6558, lon: 32.6178 }
 	})
 
 	const onSuccess = (location: GeolocationPosition) => {
@@ -28,8 +28,8 @@ export const useGeolocation = () => {
 			loaded: true,
 			coordinates: {
 				lat: location.coords.latitude,
-				lon: location.coords.longitude,
-			},
+				lon: location.coords.longitude
+			}
 		})
 	}
 
@@ -37,7 +37,7 @@ export const useGeolocation = () => {
 		setLocation({
 			loaded: true,
 			error,
-			coordinates: { lat: 46.6558, lon: 32.6178 },
+			coordinates: { lat: 46.6558, lon: 32.6178 }
 		})
 	}
 
@@ -45,7 +45,7 @@ export const useGeolocation = () => {
 		if (!('geolocation' in navigator)) {
 			onError({
 				code: 0,
-				message: 'Geolocation not supported',
+				message: 'Geolocation not supported'
 			})
 		}
 
