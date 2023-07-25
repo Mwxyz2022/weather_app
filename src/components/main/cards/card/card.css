@@ -1,6 +1,7 @@
 .card {
 	display: flex;
 	flex-direction: row;
+	animation: appearFromInsideKeyframes 0.2s ease-out;
 }
 
 .card__info {
@@ -131,5 +132,16 @@
 		justify-content: space-between;
 		max-width: 550px;
 		width: 100%;
+	}
+}
+
+@keyframes appearFromInsideKeyframes {
+	from {
+		transform: scale(0.8);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
 	}
 }
