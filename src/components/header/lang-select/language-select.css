@@ -13,7 +13,6 @@
 .lang__container:hover {
 	display: flex;
 	justify-content: space-evenly;
-	width: 120px;
 }
 
 .lang__button {

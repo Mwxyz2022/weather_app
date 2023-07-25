@@ -34,6 +34,7 @@ const LanguageSelect: FC = () => {
 			className='lang__container'
 			onMouseEnter={() => setIsShowAllLang(true)}
 			onMouseLeave={() => setIsShowAllLang(false)}
+			style={{ width: isShowAllLang ? 120 : 60 }}
 		>
 			{isShowAllLang && (
 				<>
