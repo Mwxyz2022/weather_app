@@ -11,6 +11,7 @@ import { AppContext } from '../../../../context/AppContext'
 import { ICityData } from '../../../../types/response.types'
 import { AppContextValue } from '../../../../types/types'
 import { getStructuredData } from '../../../../utils/parse-data/parse-data'
+import Loader from '../../../loader/Loader'
 import ModalPortal from '../../../modal/ModalPortal'
 import ModalDeleteCity from '../../../modal/delete-city/ModalDeleteCity'
 import ChartDay from '../chart-day/ChartDay'
@@ -63,7 +64,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 	}, [initData])
 
 	if (cardLoader) {
-		return <div> LOADING... </div>
+		return <Loader />
 	}
 
 	return (

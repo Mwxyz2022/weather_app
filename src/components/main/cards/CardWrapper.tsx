@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
 import { AppContextValue } from '../../../types/types'
+import Loader from '../../loader/Loader'
 
 import Card from './card/Card'
 
@@ -21,11 +22,7 @@ const CardWrapper: FC = () => {
 		}
 	}, [cityId])
 
-	return (
-		<div className='card__wrapper'>
-			{initData ? <Card initData={initData} /> : <div className='loaded'>Loading...</div>}
-		</div>
-	)
+	return <div className='card__wrapper'>{initData ? <Card initData={initData} /> : <Loader />}</div>
 }
 
 export default CardWrapper
