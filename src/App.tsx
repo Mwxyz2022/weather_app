@@ -5,8 +5,7 @@ import './assets/app.css'
 import Header from './components/header/Header'
 import { AppContext } from './context/AppContext'
 import { ICityData } from './types/response.types'
-import { initCities } from './utils/local-storage/cities'
-import { initFavorites } from './utils/local-storage/favorites'
+import { initCities, initFavorites } from './utils/init-storage'
 
 const App: FC = () => {
 	const [storedCities, setStoredCities] = useState<ICityData[]>(initCities())

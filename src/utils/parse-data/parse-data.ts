@@ -1,16 +1,18 @@
 import moment from 'moment'
+
+import { WeatherData } from '../../types/response.types'
 import { degToCompass } from '../deg-compass'
-import { transformWeatherData } from '../transformWeaterData'
 import { describeWindSpeed } from '../wind-speed'
 
-export const getStructuredData = (weatherInfo: any) => {
+import { transformWeatherData } from './transformWeaterData'
+
+export const getStructuredData = (weatherInfo: WeatherData) => {
 	const iconIndex = weatherInfo.current.weather[0].icon
 	const currentTemp = Math.round(weatherInfo.current.temp)
 	const feelsLikeTemp = Math.round(weatherInfo.current.feels_like)
 
 	let descriptionWeather = weatherInfo.current.weather[0].description
-	descriptionWeather =
-		descriptionWeather.charAt(0).toUpperCase() + descriptionWeather.slice(1)
+	descriptionWeather = descriptionWeather.charAt(0).toUpperCase() + descriptionWeather.slice(1)
 
 	const localTime = moment
 		.unix(weatherInfo.current.dt)
@@ -27,8 +29,7 @@ export const getStructuredData = (weatherInfo: any) => {
 	const dewPoint = Math.round(weatherInfo.current.dew_point)
 	const visibility = (Number(weatherInfo.current.visibility) / 1000).toFixed(1)
 
-	const { hourly: hourlyData, daily: dailyData } =
-		transformWeatherData(weatherInfo)
+	const { hourly: hourlyData, daily: dailyData } = transformWeatherData(weatherInfo)
 
 	return {
 		iconIndex,

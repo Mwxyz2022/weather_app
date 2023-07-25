@@ -2,10 +2,11 @@ import { ChartOptions } from 'chart.js'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { useTranslation } from 'react-i18next'
-import { ChartFormItem } from '../../../../utils/transformWeaterData'
+
+import { ChartFormItem } from '../../../../types/response.types'
 
 interface IChartFiveDayProps {
-	cardInfo: any
+	cardInfo: ChartFormItem[]
 }
 
 const ChartFiveDay: React.FC<IChartFiveDayProps> = ({ cardInfo }) => {
@@ -13,11 +14,11 @@ const ChartFiveDay: React.FC<IChartFiveDayProps> = ({ cardInfo }) => {
 	const { t } = useTranslation()
 
 	const data = {
-		labels: cardInfo.map((item: ChartFormItem) => item.period),
+		labels: cardInfo.map(item => item.period),
 		datasets: [
 			{
 				label: 'Temperature',
-				data: cardInfo.map((item: ChartFormItem) => item.temp),
+				data: cardInfo.map(item => item.temp),
 				borderColor: 'rgb(75, 192, 192)',
 				fill: false
 			}

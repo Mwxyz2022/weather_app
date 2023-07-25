@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdOutlineClose } from 'react-icons/md'
@@ -25,9 +26,10 @@ interface ICardProps {
 const Card: FC<ICardProps> = ({ initData }) => {
 	const { storedCities } = useContext<AppContextValue>(AppContext)
 	const [cardLoader, setCardLoader] = useState<boolean>(true)
-	const [cardData, setCardData] = useState<any>(null)
 	const [isDayChart, setIsDayChart] = useState<boolean>(true)
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState<boolean>(false)
+
+	const [cardData, setCardData] = useState<any>(null)
 	const { pathname } = useLocation()
 	const { t } = useTranslation()
 

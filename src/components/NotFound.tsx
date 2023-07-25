@@ -22,8 +22,6 @@ const NotFound: FC = () => {
 		}
 	}, [countdown, navigate])
 
-	console.log(countdown)
-
 	return (
 		<section className='not-found'>
 			<h1>{t('not_found')}</h1>

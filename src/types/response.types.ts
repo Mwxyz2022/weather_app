@@ -33,58 +33,48 @@ export interface FeelsLike {
 export interface WeatherDescription {
 	id: number
 	main: string
-	description: string
-	icon: string
+	description: string //
+	icon: string //
 }
 
 export interface HourlyWeather {
 	dt: number
+	temp: number
+}
+
+export interface CurrentWeather {
+	dt: number //
 	sunrise: number
 	sunset: number
 	moonrise: number
 	moonset: number
 	moon_phase: number
-	temp: number
-	feels_like: FeelsLike
-	pressure: number
-	humidity: number
-	dew_point: number
-	wind_speed: number
-	wind_deg: number
+	temp: number //
+	feels_like: number //
+	pressure: number //
+	humidity: number //
+	dew_point: number //
+	visibility: number //
+	wind_speed: number //
+	wind_deg: number //
 	wind_gust: number
-	weather: WeatherDescription[]
+	weather: WeatherDescription[] //
 	clouds: number
 	pop: number
-	uvi: number
+	uvi: number //
 }
 
 export interface DailyWeather {
 	dt: number
-	sunrise: number
-	sunset: number
-	moonrise: number
-	moonset: number
-	moon_phase: number
 	temp: Temp
-	feels_like: FeelsLike
-	pressure: number
-	humidity: number
-	dew_point: number
-	wind_speed: number
-	wind_deg: number
-	wind_gust: number
-	weather: WeatherDescription[]
-	clouds: number
-	pop: number
-	uvi: number
 }
 
 export interface WeatherData {
 	lat: number
 	lon: number
 	timezone: string
-	timezone_offset: number
-	current: DailyWeather
+	timezone_offset: number //
+	current: CurrentWeather
 	hourly: HourlyWeather[]
 	daily: DailyWeather[]
 }
@@ -98,4 +88,9 @@ export interface ICityData {
 	name: string
 	coord: Coord
 	sys: Country
+}
+
+export interface ChartFormItem {
+	period: string
+	temp: number
 }

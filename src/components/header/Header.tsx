@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import { AppContext } from '../../context/AppContext'
 import { AppContextValue } from '../../types/types'
-import { initLanguage } from '../../utils/local-storage/init-language'
+import { initLanguage } from '../../utils/init-storage'
 
 import './header.css'
 
@@ -15,15 +15,17 @@ const Header: FC = () => {
 	const { pathname } = useLocation()
 	const { t, i18n } = useTranslation()
 
-	const firstCityTab = storedCities[0]
-	const cityTabId = firstCityTab?.id
-
 	const isFavPage = pathname.startsWith('/favorites')
 
 	const langHandler = (event: ChangeEvent<HTMLSelectElement>) => {
 		setLanguage(event.target.value)
 		i18n.changeLanguage(event.target.value)
 		localStorage.setItem('language', JSON.stringify(event.target.value))
+	}
+
+	const mainNavigate = () => {
+		const firstCityTab = storedCities[0]
+		return firstCityTab ? `/city/${firstCityTab.id}` : '/'
 	}
 
 	return (
@@ -39,10 +41,7 @@ const Header: FC = () => {
 			</section>
 
 			<nav className='navigation'>
-				<Link
-					className={isFavPage ? 'link' : 'link active'}
-					to={cityTabId ? `/city/${cityTabId}` : '/'}
-				>
+				<Link className={isFavPage ? 'link' : 'link active'} to={mainNavigate()}>
 					{t('main')}
 				</Link>
 				<Link className={!isFavPage ? 'link' : 'link active'} to='/favorites'>
