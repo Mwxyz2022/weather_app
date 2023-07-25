@@ -22,7 +22,7 @@ const Favorites: FC = () => {
 
 			{isFavoritesEmpty && (
 				<div className='no-cities'>
-					<h1 className='no-cities__title'>{t('no_city_list_title')}</h1>
+					<h2 className='no-cities__title'>{t('no_city_list_title')}</h2>
 					<p className='no-cities__description'>{t('no_city_list_description')}</p>
 					<ol className='no-cities__list'>
 						<li className='no-cities__list-item'>

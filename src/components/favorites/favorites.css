@@ -46,12 +46,12 @@
 }
 
 .no-cities__title {
-	margin-bottom: 8px;
+	margin-bottom: 16px;
 }
 
 .no-cities__description {
 	font-size: 18px;
-	margin-bottom: 8px;
+	margin-bottom: 16px;
 }
 
 .no-cities__list {
@@ -60,6 +60,11 @@
 	font-size: 18px;
 }
 
+.no-cities__list-item {
+	margin-bottom: 8px;
+}
+
 .no-cities__link {
 	text-decoration: none;
+	color: #5395f7;
 }
