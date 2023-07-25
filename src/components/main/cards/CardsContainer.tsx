@@ -2,10 +2,12 @@ import { FC, useContext } from 'react'
 import { Link, Outlet, useParams } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
+import { AppContextValue } from '../../../types/types'
+
 import './cards-container.css'
 
 const CardsContainer: FC = () => {
-	const { storedCities } = useContext(AppContext)
+	const { storedCities } = useContext<AppContextValue>(AppContext)
 	const { cityId } = useParams()
 
 	return (
@@ -17,9 +19,7 @@ const CardsContainer: FC = () => {
 
 						return (
 							<li
-								className={
-									isActive ? 'city-nav-item link-active' : 'city-nav-item'
-								}
+								className={isActive ? 'city-nav-item link-active' : 'city-nav-item'}
 								key={city.id}
 							>
 								<Link className='city-link' to={`/city/${city.id}`}>

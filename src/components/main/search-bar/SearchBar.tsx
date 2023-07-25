@@ -1,25 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { useNavigate } from 'react-router-dom'
-import { WeatherService } from '../../../api/weather.service'
 
+import { WeatherService } from '../../../api/weather.service'
 import { AppContext } from '../../../context/AppContext'
+import { ICityData } from '../../../types/response.types'
+import { AppContextValue } from '../../../types/types'
 import { tempConvert } from '../../../utils/temp'
+import Notification from '../../modal/notification/Notification'
+
 import './search-bar.css'
 
 const SearchBar: FC = () => {
-	const { t } = useTranslation()
-	const navigate = useNavigate()
+	const [isCityAlreadyAdded, setIsCityAlreadyAdded] = useState<boolean>(false)
+	const [isCityLimitExceeded, setIsCityLimitExceeded] = useState<boolean>(false)
 
-	const { setStoredCities } = useContext(AppContext)
+	const { storedCities, setStoredCities } = useContext<AppContextValue>(AppContext)
 
 	const [value, setValue] = useState<string>('')
-
 	const [search, setSearch] = useState<string>('')
+	const [cities, setCities] = useState<ICityData[]>([])
 
-	const [cities, setCities] = useState([])
+	const navigate = useNavigate()
+	const { t } = useTranslation()
 
 	const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value)
@@ -31,6 +35,9 @@ const SearchBar: FC = () => {
 		} else if (search.length > 2) {
 			try {
 				const { data: citiesData } = await WeatherService.findByCity(search)
+
+				console.log(citiesData)
+
 				setCities(citiesData.list)
 			} catch (error) {
 				console.error(error)
@@ -44,35 +51,25 @@ const SearchBar: FC = () => {
 		setCities([])
 	}
 
-	const selectCityHandler = (city: any) => {
-		const storageData = localStorage.getItem('cities')
-		const storageCities = storageData ? JSON.parse(storageData) : []
+	const selectCityHandler = (city: ICityData) => {
+		const cityExists = storedCities.some(storageCity => storageCity.id === city.id)
 
-		const cityExists = storageCities.some(
-			(storageCity: any) => storageCity.id === city.id
-		)
 		if (cityExists) {
-			alert('this city is already on your list')
+			setIsCityAlreadyAdded(true)
 			return
 		}
 
-		if (storageCities.length === 5) {
+		if (storedCities.length === 5) {
+			setIsCityLimitExceeded(true)
 			clearInput()
 			return
 		}
 
-		const uniqCities = storageCities.filter(
-			(storageCity: any) => storageCity.id !== city.id
-		)
+		const newStorageCities = [...storedCities, city]
 
-		const newStorageCities = [...uniqCities, city]
+		localStorage.setItem('cities', JSON.stringify(newStorageCities))
 
-		try {
-			window.localStorage.setItem('cities', JSON.stringify(newStorageCities))
-			setStoredCities(newStorageCities)
-		} catch (error) {
-			console.log(error)
-		}
+		setStoredCities(newStorageCities)
 		clearInput()
 
 		navigate(`/city/${city.id}`)
@@ -93,41 +90,47 @@ const SearchBar: FC = () => {
 	}, [search])
 
 	return (
-		<section className='search__container'>
-			<input
-				className='search-input'
-				type='text'
-				placeholder={t('search_ph')}
-				onChange={searchHandler}
-				value={value}
-			/>
-			{!!cities.length && (
-				<ul className='search-list'>
-					{cities.map((city: any) => {
-						return (
-							<li
-								key={city.id}
-								className='list-item'
-								onClick={() => selectCityHandler(city)}
-							>
-								<span>
-									<img
-										src={`https://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
-										alt='flag'
-									/>
-									{city.name},{city.sys.country}
-								</span>
-								<span>{tempConvert(city.main.temp)}°C</span>
-
-								{/* 
-								// TO-DO 
-								<span>{city.weather[0].icon}</span> */}
-							</li>
-						)
-					})}
-				</ul>
+		<>
+			<section className='search__container'>
+				<input
+					className='search-input'
+					type='text'
+					placeholder={t('search_ph')}
+					onChange={searchHandler}
+					value={value}
+				/>
+				{!!cities.length && (
+					<ul className='search-list'>
+						{cities.map((city: any) => {
+							return (
+								<li key={city.id} className='list-item' onClick={() => selectCityHandler(city)}>
+									<span>
+										<img
+											src={`https://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
+											alt='flag'
+										/>
+										{city.name},{city.sys.country}
+									</span>
+									<span>{tempConvert(city.main.temp)}°C</span>
+								</li>
+							)
+						})}
+					</ul>
+				)}
+			</section>
+			{isCityAlreadyAdded && (
+				<Notification
+					message={t('notification_already_list')}
+					setOuterStore={setIsCityAlreadyAdded}
+				/>
 			)}
-		</section>
+			{isCityLimitExceeded && (
+				<Notification
+					message={t('notification_limit_location')}
+					setOuterStore={setIsCityLimitExceeded}
+				/>
+			)}
+		</>
 	)
 }
 

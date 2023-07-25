@@ -1,19 +1,18 @@
 import { FC, useContext, useState } from 'react'
-
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineClose } from 'react-icons/md'
 
 import { AppContext } from '../../../context/AppContext'
-import { putToStorage } from '../../../utils/city.helper'
+import { ICityData } from '../../../types/response.types'
+import { AppContextValue } from '../../../types/types'
 import Card from '../../main/cards/card/Card'
 
 interface IFavoriteItemProps {
-	cityData: any
+	cityData: ICityData
 }
 
 const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
-	const { storedCities, favoriteCities, setFavoriteCities } =
-		useContext(AppContext)
+	const { favoriteCities, setFavoriteCities } = useContext<AppContextValue>(AppContext)
 	const [isShow, setIsShow] = useState<boolean>(false)
 
 	const { id: cityId } = cityData
@@ -22,12 +21,10 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 		setIsShow(prev => !prev)
 	}
 
-	const onDeleteHandler = async () => {
-		const newFavStorage = favoriteCities.filter(
-			(city: any) => city.id !== cityId
-		)
+	const onDeleteHandler = () => {
+		const newFavStorage = favoriteCities.filter(city => city.id !== cityId)
 
-		await putToStorage(newFavStorage, 'favorites')
+		localStorage.setItem('favorites', JSON.stringify(newFavStorage))
 		setFavoriteCities(newFavStorage)
 	}
 
@@ -47,10 +44,7 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 
 				<span className='information__actions'>
 					<button className='actions__unfold' onClick={onShowHandler}>
-						<IoIosArrowBack
-							size={30}
-							style={{ transform: isShow ? 'rotate(270deg)' : 'none' }}
-						/>
+						<IoIosArrowBack size={30} style={{ transform: isShow ? 'rotate(270deg)' : 'none' }} />
 					</button>
 					<button className='actions__delete' onClick={onDeleteHandler}>
 						<MdOutlineClose size={30} />
@@ -59,7 +53,6 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 			</section>
 
 			{isShow && <Card initData={cityData} />}
-			<section className='city__weather'></section>
 		</article>
 	)
 }

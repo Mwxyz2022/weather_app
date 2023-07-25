@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { WeatherData } from '../types/response-types'
+import { WeatherData } from '../types/response.types'
 
 export interface ChartFormItem {
 	period: string

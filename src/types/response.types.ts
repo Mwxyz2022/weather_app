@@ -1,6 +1,6 @@
 export interface Coord {
-	lon: number
 	lat: number
+	lon: number
 }
 
 export interface City {
@@ -87,4 +87,15 @@ export interface WeatherData {
 	current: DailyWeather
 	hourly: HourlyWeather[]
 	daily: DailyWeather[]
+}
+
+interface Country {
+	country: string
+}
+
+export interface ICityData {
+	id: number
+	name: string
+	coord: Coord
+	sys: Country
 }

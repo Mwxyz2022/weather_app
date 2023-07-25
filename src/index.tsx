@@ -1,13 +1,3 @@
-import ReactDOM from 'react-dom/client'
-import { I18nextProvider } from 'react-i18next'
-import { RouterProvider } from 'react-router-dom'
-
-import reportWebVitals from './test/reportWebVitals'
-
-import router from './router/router'
-
-import i18n from './i18n/_i18n.js'
-
 import {
 	CategoryScale,
 	Chart,
@@ -16,6 +6,13 @@ import {
 	LinearScale,
 	PointElement,
 } from 'chart.js'
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
+import { RouterProvider } from 'react-router-dom'
+import i18n from './i18n/_i18n.js'
+import router from './router/router'
+import reportWebVitals from './test/reportWebVitals'
 
 import './assets/index.css'
 
@@ -29,11 +26,11 @@ Chart.register(
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-	// <React.StrictMode>
-	<I18nextProvider i18n={i18n}>
-		<RouterProvider router={router} />
-	</I18nextProvider>
-	// </React.StrictMode>
+	<StrictMode>
+		<I18nextProvider i18n={i18n}>
+			<RouterProvider router={router} />
+		</I18nextProvider>
+	</StrictMode>
 )
 
 reportWebVitals()

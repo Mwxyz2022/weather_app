@@ -1,0 +1,24 @@
+.notification {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	padding: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 360px;
+	background-color: #d7f9ff;
+	border-radius: 8px;
+	border: 1px solid #666666;
+}
+
+.notification__button {
+	position: absolute;
+	padding: 0;
+	top: 5px;
+	right: 5px;
+	background-color: transparent;
+	color: #0192d4;
+	border: none;
+	cursor: pointer;
+}

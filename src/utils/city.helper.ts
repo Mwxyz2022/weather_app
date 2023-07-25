@@ -1,7 +1,8 @@
 import { GeoService } from '../api/geo.service'
 import { WeatherService } from '../api/weather.service'
+import { ICityData } from '../types/response.types'
 
-export const getCityName = async (lat: number, lon: number) => {
+export const getCityName = async (lat: number, lon: number): Promise<string | undefined> => {
 	try {
 		const response = await GeoService.getCityInfo(lat, lon)
 		if (response.data.length > 0) {
@@ -13,18 +14,12 @@ export const getCityName = async (lat: number, lon: number) => {
 	}
 }
 
-export const findCityWithName = async (name: string) => {
+export const findCityWithName = async (
+	name: string | undefined
+): Promise<ICityData[] | undefined> => {
 	try {
 		const { data } = await WeatherService.findByCity(name)
-		return data
-	} catch (error) {
-		console.error(error)
-	}
-}
-
-export const putToStorage = async (closestCity: any, storeKey: string) => {
-	try {
-		window.localStorage.setItem(storeKey, JSON.stringify(closestCity))
+		return data.list
 	} catch (error) {
 		console.error(error)
 	}

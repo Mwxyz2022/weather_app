@@ -1,9 +1,6 @@
-const getDistance = (
-	lat1: number,
-	lon1: number,
-	lat2: number,
-	lon2: number
-) => {
+import { ICityData } from '../types/response.types'
+
+const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
 	const radlat1 = (Math.PI * lat1) / 180
 	const radlat2 = (Math.PI * lat2) / 180
 	const theta = lon1 - lon2
@@ -17,14 +14,13 @@ const getDistance = (
 	return dist
 }
 
-export const findClosestCity = (cities: any, lat: number, lon: number) => {
+export const findClosestCity = (cities: ICityData[] | undefined, lat: number, lon: number) => {
+	if (!cities || cities.length === 0) {
+		return undefined
+	}
+
 	let closestCity = cities[0]
-	let closestDistance = getDistance(
-		lat,
-		lon,
-		cities[0].coord.lat,
-		cities[0].coord.lon
-	)
+	let closestDistance = getDistance(lat, lon, cities[0].coord.lat, cities[0].coord.lon)
 
 	for (let city of cities) {
 		const distance = getDistance(lat, lon, city.coord.lat, city.coord.lon)

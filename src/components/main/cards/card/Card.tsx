@@ -1,30 +1,29 @@
 import { FC, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { MdOutlineClose } from 'react-icons/md'
+import { useLocation } from 'react-router-dom'
 
+import { WeatherService } from '../../../../api/weather.service'
 import arrow from '../../../../assets/img/arrow.svg'
 import pressure from '../../../../assets/img/pressure.svg'
-
-import { MdOutlineClose } from 'react-icons/md'
-
-import { useLocation } from 'react-router-dom'
-import { WeatherService } from '../../../../api/weather.service'
 import { AppContext } from '../../../../context/AppContext'
+import { ICityData } from '../../../../types/response.types'
+import { AppContextValue } from '../../../../types/types'
 import { getStructuredData } from '../../../../utils/parse-data/parse-data'
+import ModalPortal from '../../../modal/ModalPortal'
+import ModalDeleteCity from '../../../modal/delete-city/ModalDeleteCity'
 import ChartDay from '../chart-day/ChartDay'
 import ChartFiveDay from '../chart-day/ChartFiveDay'
 
+import './card.css'
 import FavoriteButton from './favorite-button/FavoriteButton'
 
-import { useTranslation } from 'react-i18next'
-import ModalPortal from '../../../modal/ModalPortal'
-import ModalDeleteCity from '../../../modal/delete-city/ModalDeleteCity'
-import './card.css'
-
 interface ICardProps {
-	initData: any
+	initData: ICityData
 }
 
 const Card: FC<ICardProps> = ({ initData }) => {
-	const { storedCities } = useContext(AppContext)
+	const { storedCities } = useContext<AppContextValue>(AppContext)
 	const [cardLoader, setCardLoader] = useState<boolean>(true)
 	const [cardData, setCardData] = useState<any>(null)
 	const [isDayChart, setIsDayChart] = useState<boolean>(true)
@@ -45,10 +44,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 		setCardLoader(true)
 
 		try {
-			const { data: weatherInfo } = await WeatherService.getWeatherInfo(
-				lat,
-				lon
-			)
+			const { data: weatherInfo } = await WeatherService.getWeatherInfo(lat, lon)
 
 			const cardData = getStructuredData(weatherInfo)
 
@@ -81,9 +77,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 										src={`https://openweathermap.org/img/wn/${cardData.iconIndex}@2x.png`}
 										alt='weather icon'
 									/>
-									<span className='temperature__value'>
-										{`${cardData.currentTemp}°C`}
-									</span>
+									<span className='temperature__value'>{`${cardData.currentTemp}°C`}</span>
 								</div>
 
 								{isCityPage && (
@@ -104,10 +98,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 								<div className='actions'>
 									<FavoriteButton cityId={cityId} />
 									{storedCities.length > 1 && (
-										<button
-											className='button__favorite'
-											onClick={() => setIsShowDeleteModal(true)}
-										>
+										<button className='button__favorite' onClick={() => setIsShowDeleteModal(true)}>
 											<MdOutlineClose size={30} />
 										</button>
 									)}
@@ -134,11 +125,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 									<span className='wind__info'>{`${cardData.windSpeed}m/s ${cardData.windCompassString}`}</span>
 								</div>
 								<div className='description__pressure'>
-									<img
-										src={pressure}
-										alt='pressure'
-										className='pressure__icon'
-									/>
+									<img src={pressure} alt='pressure' className='pressure__icon' />
 									<span className='pressure__info'>{`${cardData.pressure}hPa`}</span>
 								</div>
 							</div>

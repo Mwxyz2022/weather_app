@@ -1,8 +1,8 @@
 import { FC, useContext } from 'react'
-
 import { AiOutlineStar, AiTwotoneStar } from 'react-icons/ai'
+
 import { AppContext } from '../../../../../context/AppContext'
-import { putToStorage } from '../../../../../utils/city.helper'
+import { AppContextValue } from '../../../../../types/types'
 
 interface IFavoriteButtonProps {
 	cityId: number
@@ -10,26 +10,23 @@ interface IFavoriteButtonProps {
 
 const FavoriteButton: FC<IFavoriteButtonProps> = ({ cityId }) => {
 	const { storedCities, favoriteCities, setFavoriteCities } =
-		useContext(AppContext)
+		useContext<AppContextValue>(AppContext)
 
-	const isFavoriteCity = favoriteCities.some((city: any) => city.id === cityId)
+	const isFavoriteCity = favoriteCities.some(city => city.id === cityId)
 
-	const onFavoriteHandler = async () => {
+	const onFavoriteHandler = () => {
 		if (isFavoriteCity) {
-			const newFavStorage = favoriteCities.filter(
-				(city: any) => city.id !== cityId
-			)
+			const newFavStorage = favoriteCities.filter(city => city.id !== cityId)
 
-			await putToStorage(newFavStorage, 'favorites')
+			localStorage.setItem('favorites', JSON.stringify(newFavStorage))
 			setFavoriteCities(newFavStorage)
 		} else {
-			const cityData = storedCities.find((city: any) => city.id === cityId)
-			const newFavStorage = !!favoriteCities
-				? [...favoriteCities, cityData]
-				: [cityData]
+			const cityData = storedCities.find(city => city.id === cityId)
 
-			await putToStorage(newFavStorage, 'favorites')
-			setFavoriteCities(newFavStorage)
+			if (cityData) {
+				localStorage.setItem('favorites', JSON.stringify([...favoriteCities, cityData]))
+				setFavoriteCities([...favoriteCities, cityData])
+			}
 		}
 	}
 

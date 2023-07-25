@@ -1,29 +1,26 @@
 import { useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+
 import { AppContext } from '../context/AppContext'
-import {
-	findCityWithName,
-	getCityName,
-	putToStorage
-} from '../utils/city.helper'
+import { AppContextValue } from '../types/types'
+import { findCityWithName, getCityName } from '../utils/city.helper'
 import { findClosestCity } from '../utils/closest-city'
+
 import { useGeolocation } from './useGeolocation'
 
 export const useCurrentPosition = () => {
 	const { loaded, coordinates } = useGeolocation()
-	const { storedCities, setStoredCities } = useContext(AppContext)
+	const { storedCities, setStoredCities } = useContext<AppContextValue>(AppContext)
 	const { cityId } = useParams()
 	const navigate = useNavigate()
 
-	const navigateToFirst = () => {
-		const firstCityTab = storedCities[0]
-		const cityTabId = firstCityTab?.id
-		navigate(`/city/${cityTabId}`)
-	}
-
 	useEffect(() => {
 		if (storedCities.length && !cityId) {
-			navigateToFirst()
+			const firstCityTab = storedCities[0]
+			if (firstCityTab) {
+				const cityTabId = firstCityTab.id
+				navigate(`/city/${cityTabId}`)
+			}
 		}
 	}, [cityId])
 
@@ -31,13 +28,20 @@ export const useCurrentPosition = () => {
 		if (!storedCities.length && loaded) {
 			const lat = coordinates.lat
 			const lon = coordinates.lon
+
 			;(async () => {
-				const cityName = await getCityName(coordinates.lat, coordinates.lon)
+				const cityName = await getCityName(lat, lon)
 				const citiesList = await findCityWithName(cityName)
-				const closestCity = findClosestCity(citiesList.list, lat, lon)
-				await putToStorage([closestCity], 'cities')
-				setStoredCities([closestCity])
-				navigateToFirst()
+				const closestCity = findClosestCity(citiesList, lat, lon)
+
+				if (closestCity) {
+					localStorage.setItem('cities', JSON.stringify([closestCity]))
+					setStoredCities([closestCity])
+
+					navigate(`/city/${closestCity.id}`)
+				} else {
+					console.error('No closest city found.')
+				}
 			})()
 		}
 	}, [loaded])

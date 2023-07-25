@@ -1,11 +1,12 @@
 import i18next from 'i18next'
 
+import { initLanguage } from '../utils/local-storage/init-language'
 import common_en from './en.json'
 import common_uk from './uk.json'
 
 const i18n = i18next.createInstance(
 	{
-		lng: 'uk',
+		lng: initLanguage(),
 		fallbackLng: 'en',
 		ns: ['common'],
 		defaultNS: 'common',
@@ -13,12 +14,12 @@ const i18n = i18next.createInstance(
 		interpolation: { escapeValue: false },
 		resources: {
 			en: {
-				common: common_en,
+				common: common_en
 			},
 			uk: {
-				common: common_uk,
-			},
-		},
+				common: common_uk
+			}
+		}
 	},
 
 	err => {

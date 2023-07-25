@@ -1,17 +1,16 @@
 import { FC, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import Header from './components/header/Header'
-
 import './assets/app.css'
-
+import Header from './components/header/Header'
 import { AppContext } from './context/AppContext'
+import { ICityData } from './types/response.types'
 import { initCities } from './utils/local-storage/cities'
 import { initFavorites } from './utils/local-storage/favorites'
 
 const App: FC = () => {
-	const [storedCities, setStoredCities] = useState(initCities())
-	const [favoriteCities, setFavoriteCities] = useState(initFavorites())
+	const [storedCities, setStoredCities] = useState<ICityData[]>(initCities())
+	const [favoriteCities, setFavoriteCities] = useState<ICityData[]>(initFavorites())
 
 	return (
 		<AppContext.Provider
