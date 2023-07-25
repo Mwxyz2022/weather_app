@@ -2,8 +2,7 @@ interface Coord {
 	lat: number
 	lon: number
 }
-
-export interface Temp {
+interface Temp {
 	day: number
 	min: number
 	max: number
@@ -12,7 +11,7 @@ export interface Temp {
 	morn: number
 }
 
-export interface WeatherDescription {
+interface WeatherDescription {
 	id: number
 	main: string
 	description: string
