@@ -25,7 +25,7 @@ const CardsContainer: FC = () => {
 								key={city.id}
 							>
 								<Link className='city-link' to={`/city/${city.id}`}>
-									{city.name}{' '}
+									{city.name}
 									{isFavoriteCity && (
 										<AiTwotoneStar size={15} style={{ color: 'orange', paddingTop: 2 }} />
 									)}
