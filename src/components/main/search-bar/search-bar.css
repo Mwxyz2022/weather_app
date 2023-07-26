@@ -6,33 +6,62 @@
 }
 
 .search-input {
-	padding: 4px;
+	padding: 8px;
 	font-size: 16px;
 	font-weight: 400;
 	width: 100%;
+	border: 2px solid rgb(131, 199, 255);
+	border-radius: 6px;
+}
+
+.search-input:focus {
+	outline: none;
+	border-color: rgb(84, 178, 255);
+	box-shadow: 0px 3px 28px 0px rgba(32, 160, 245, 0.75);
 }
 
 .search-list {
 	list-style-type: none;
 	position: absolute;
+	top: 46px;
 	width: 100%;
-	z-index: 2;
+	border: 2px solid #31c9e4;
+	border-radius: 4px;
+	box-shadow: 0px 3px 28px 0px rgba(32, 160, 245, 0.75);
+	/* z-index: 3; */
 }
 
 .list-item {
 	display: flex;
 	justify-content: space-between;
-	padding: 4px;
+	padding: 8px;
 	font-weight: 400;
-	background-color: white;
-	border-bottom: 1px solid rgb(238, 237, 237);
+	border-bottom: 1px solid rgb(143, 229, 255);
+	background-color: rgb(255, 255, 255);
 	cursor: pointer;
+	animation: appearFromTopKeyframes 0.4s both;
+}
+
+.list-item:first-child {
+	border-radius: 2px 2px 0 0;
 }
 
 .list-item:last-child {
 	border-bottom: none;
+	border-radius: 0 0 2px 2px;
 }
 
 .list-item:hover {
-	background-color: rgb(235, 235, 235);
+	background-color: #b7ecff;
+}
+
+@keyframes appearFromTopKeyframes {
+	from {
+		transform: translateY(-80%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }

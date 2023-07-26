@@ -87,6 +87,18 @@ const SearchBar: FC = () => {
 		getCity()
 	}, [search])
 
+	useEffect(() => {
+		const items = document.querySelectorAll('.list-item') as NodeListOf<HTMLElement>
+
+		items.forEach((item, index) => {
+			if (items.length === 1) {
+				item.style.borderRadius = `2px 2px 2px 2px`
+			}
+
+			item.style.animationDelay = `${index * 0.1}s`
+		})
+	}, [cities])
+
 	return (
 		<>
 			<section className='search__container'>
