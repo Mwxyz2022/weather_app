@@ -43,7 +43,7 @@ const LanguageSelect: FC = () => {
 			onMouseLeave={onMouseLeaveHandler}
 			style={{
 				justifyContent: isShowAllLang ? 'space-evenly' : 'center',
-				width: isShowAllLang ? 120 : 60
+				width: isShowAllLang ? 106 : 56
 			}}
 		>
 			{isShowAllLang && (

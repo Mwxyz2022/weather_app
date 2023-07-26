@@ -4,8 +4,9 @@
 	align-items: center;
 	height: 40px;
 	background-color: #76d2f4;
-	border: 2px solid #3aaad3;
+	border: 1px solid #3aaad3;
 	border-radius: 10px;
+	box-shadow: inset 0px 0px 53px -16px rgba(0, 38, 252, 0.4);
 	transition: width 0.5s ease-out;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .lang__button:hover {
-	box-shadow: 0 0 10px rgba(29, 20, 20, 0.356);
+	box-shadow: 0 0 10px rgba(255, 252, 56, 0.534);
 }
 
 .button__gradient {
@@ -32,9 +33,9 @@
 	border-radius: 4px;
 	background: linear-gradient(
 		90deg,
-		rgba(10, 96, 139, 0.10688025210084029) 3%,
-		rgba(174, 233, 75, 0.258140756302521) 22%,
-		rgba(0, 212, 255, 0.1825105042016807) 100%
+		rgba(10, 96, 139, 0.22172619047619047) 3%,
+		rgba(174, 233, 75, 0.11528361344537819) 11%,
+		rgba(0, 212, 255, 0.2329306722689075) 100%
 	);
 	z-index: 1;
 }
@@ -49,7 +50,7 @@
 
 @keyframes showButton {
 	from {
-		transform: scale(0.7);
+		transform: scale(0.2);
 		opacity: 0;
 	}
 	to {

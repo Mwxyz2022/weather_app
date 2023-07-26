@@ -119,7 +119,7 @@ const SearchBar: FC = () => {
 											src={`https://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
 											alt='flag'
 										/>
-										{city.name},{city.sys.country}
+										{city.name}, {city.sys.country}
 									</span>
 									<span>{tempConvert(city.main.temp)}°C</span>
 								</li>

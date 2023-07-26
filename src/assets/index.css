@@ -8,10 +8,13 @@ html,
 body {
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size: 16px;
+	color: #551a8b;
 }
 
 #root {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	background-color: #d9f5ff;
+	height: 100vh;
 }
