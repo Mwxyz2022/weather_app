@@ -10,6 +10,8 @@
 	background-color: #d7f9ff;
 	border-radius: 8px;
 	border: 1px solid #666666;
+	animation: appearFromRight 0.2s ease-out;
+	z-index: 2;
 }
 
 .notification__button {
@@ -21,4 +23,15 @@
 	color: #0192d4;
 	border: none;
 	cursor: pointer;
+}
+
+@keyframes appearFromRight {
+	from {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
 }

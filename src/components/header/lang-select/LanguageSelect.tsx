@@ -29,11 +29,18 @@ const LanguageSelect: FC = () => {
 		setCurrentLang(language)
 	}
 
+	const onMouseLeaveHandler = () => {
+		if (isShowAllLang) {
+			setIsShowAllLang(false)
+		}
+		return
+	}
+
 	return (
 		<div
 			className='lang__container'
 			onMouseEnter={() => setIsShowAllLang(true)}
-			onMouseLeave={() => setIsShowAllLang(false)}
+			onMouseLeave={onMouseLeaveHandler}
 			style={{
 				justifyContent: isShowAllLang ? 'space-evenly' : 'center',
 				width: isShowAllLang ? 120 : 60
