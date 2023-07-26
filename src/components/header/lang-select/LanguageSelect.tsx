@@ -1,20 +1,11 @@
-import { FC, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import enFlag from '../../../assets/img/lang-flag/en.png'
-import uaFlag from '../../../assets/img/lang-flag/ua.png'
+import { imageLang } from '../../../data/imageLang'
 import { initLanguage } from '../../../utils/local-storage/init-storage'
 
 import './language-select.css'
 
-interface ILangUrl {
-	[key: string]: string
-}
-
-const langImage: ILangUrl = {
-	ua: uaFlag,
-	en: enFlag
-}
 const LanguageSelect: FC = () => {
 	const languages = ['ua', 'en']
 
@@ -22,25 +13,30 @@ const LanguageSelect: FC = () => {
 	const [isShowAllLang, setIsShowAllLang] = useState(false)
 	const { i18n } = useTranslation()
 
+	const ref = useRef<HTMLButtonElement>(null)
+
 	const onSelectLangHandler = (language: string) => {
 		i18n.changeLanguage(language)
 		localStorage.setItem('language', JSON.stringify(language))
-		setIsShowAllLang(false)
 		setCurrentLang(language)
+		setIsShowAllLang(false)
+
+		if (ref.current) {
+			ref.current.classList.add('click')
+		}
 	}
 
-	const onMouseLeaveHandler = () => {
-		if (isShowAllLang) {
-			setIsShowAllLang(false)
+	const onLangBarHandler = () => {
+		setIsShowAllLang(isShowAllLang ? false : true)
+
+		if (ref.current) {
+			ref.current.classList.remove('click')
 		}
-		return
 	}
 
 	return (
 		<div
 			className='lang__container'
-			onMouseEnter={() => setIsShowAllLang(true)}
-			onMouseLeave={onMouseLeaveHandler}
 			style={{
 				justifyContent: isShowAllLang ? 'space-evenly' : 'center',
 				width: isShowAllLang ? 106 : 56
@@ -53,12 +49,11 @@ const LanguageSelect: FC = () => {
 						.map(item => (
 							<button
 								key={item}
-								className='lang__button select-lang'
+								className='lang__button  lang__button-select'
 								style={{
-									backgroundImage: `url(${langImage[item]})`
+									backgroundImage: `url(${imageLang[item]})`
 								}}
 								onClick={() => onSelectLangHandler(item)}
-								onTouchStart={() => onSelectLangHandler(item)}
 							>
 								<div className='button__gradient'></div>
 							</button>
@@ -66,11 +61,12 @@ const LanguageSelect: FC = () => {
 				</>
 			)}
 			<button
-				className='lang__button current-lang'
+				ref={ref}
+				className='lang__button lang__button-current'
 				style={{
-					backgroundImage: `url(${langImage[currentLang]})`
+					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
-				onClick={() => setIsShowAllLang(isShowAllLang ? false : true)}
+				onClick={onLangBarHandler}
 			>
 				<div className='button__gradient'></div>
 			</button>
