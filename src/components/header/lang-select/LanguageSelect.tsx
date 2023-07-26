@@ -13,7 +13,7 @@ const LanguageSelect: FC = () => {
 	const [isShowAllLang, setIsShowAllLang] = useState(false)
 	const { i18n } = useTranslation()
 
-	const ref = useRef<HTMLButtonElement>(null)
+	const ref = useRef<HTMLDivElement>(null)
 
 	const onSelectLangHandler = (language: string) => {
 		i18n.changeLanguage(language)
@@ -47,29 +47,27 @@ const LanguageSelect: FC = () => {
 					{languages
 						.filter(item => item !== currentLang)
 						.map(item => (
-							<button
+							<div
 								key={item}
-								className='lang__button  lang__button-select'
+								className='button__wrapper button__wrapper-select'
 								style={{
 									backgroundImage: `url(${imageLang[item]})`
 								}}
-								onClick={() => onSelectLangHandler(item)}
 							>
-								<div className='button__gradient'></div>
-							</button>
+								<button className='button__gradient' onClick={() => onSelectLangHandler(item)} />
+							</div>
 						))}
 				</>
 			)}
-			<button
+			<div
 				ref={ref}
-				className='lang__button lang__button-current'
+				className='button__wrapper button__wrapper-current'
 				style={{
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
-				onClick={onLangBarHandler}
 			>
-				<div className='button__gradient'></div>
-			</button>
+				<button className='button__gradient' onClick={onLangBarHandler} />
+			</div>
 		</div>
 	)
 }

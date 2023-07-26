@@ -3,46 +3,23 @@
 	display: flex;
 	align-items: center;
 	height: 40px;
-	background-color: #76d2f4;
 	border: 1px solid #3aaad3;
 	border-radius: 10px;
+	background-color: #76d2f4;
 	box-shadow: inset 0px 0px 5px -2px rgba(0, 0, 0, 1);
 	transition: width 0.5s ease-out;
 }
 
-.lang__button {
+.button__wrapper {
 	position: relative;
+	display: flex;
 	width: 36px;
 	height: 22px;
 	border-radius: 5px;
 	background-size: 100% 100%;
-	border: none;
-	cursor: pointer;
-	box-shadow: 0 0 2px rgba(31, 30, 4, 0.733);
-}
-
-.lang__button:hover {
-	box-shadow: 0 0 3px rgba(31, 30, 4, 0.733);
-}
-
-.lang__button:active {
-	animation: pushButton 0.5s ease-out;
-}
-
-.lang__button-select {
-	animation: showButton 0.5s ease-out;
-}
-
-.lang__button-current {
-	animation: showButton 0.3s ease-out;
-}
-
-.click {
-	animation: clickBtn 0.5s ease-out;
 }
 
 .button__gradient {
-	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -54,7 +31,28 @@
 		rgba(174, 233, 75, 0.11528361344537819) 11%,
 		rgba(0, 212, 255, 0.2329306722689075) 100%
 	);
-	z-index: 1;
+	border: none;
+	cursor: pointer;
+}
+
+.button__wrapper:hover {
+	box-shadow: 0 0 3px rgba(31, 30, 4, 0.733);
+}
+
+.button__wrapper:active {
+	animation: pushButton 0.5s ease-out;
+}
+
+.button__wrapper-select {
+	animation: showButton 0.5s ease-out;
+}
+
+.button__wrapper-current {
+	animation: showButton 0.3s ease-out;
+}
+
+.click {
+	animation: clickBtn 0.5s ease-out;
 }
 
 @keyframes showButton {
