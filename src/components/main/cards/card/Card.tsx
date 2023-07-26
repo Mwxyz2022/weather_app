@@ -79,6 +79,7 @@ const Card: FC<ICardProps> = ({ initData }) => {
 										className='temperature__icon'
 										src={`https://openweathermap.org/img/wn/${cardData.iconIndex}@2x.png`}
 										alt='weather icon'
+										style={{ maxWidth: 100, minHeight: 100, width: '100%', height: '100%' }}
 									/>
 									<span className='temperature__value'>{`${cardData.currentTemp}°C`}</span>
 								</div>

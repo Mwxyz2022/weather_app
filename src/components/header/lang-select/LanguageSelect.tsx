@@ -58,6 +58,7 @@ const LanguageSelect: FC = () => {
 									backgroundImage: `url(${langImage[item]})`
 								}}
 								onClick={() => onSelectLangHandler(item)}
+								onTouchStart={() => onSelectLangHandler(item)}
 							>
 								<div className='button__gradient'></div>
 							</button>
