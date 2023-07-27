@@ -14,6 +14,7 @@ const LanguageSelect: FC = () => {
 	const { i18n } = useTranslation()
 
 	const ref = useRef<HTMLDivElement>(null)
+
 	const startTouchTimestampRef = useRef<number>(0)
 
 	const onSelectLangHandler = (language: string) => {
@@ -41,7 +42,7 @@ const LanguageSelect: FC = () => {
 
 	const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
 		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
-		const isCurrentButton = e.currentTarget.dataset.name || ''
+		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
 		if (isClick) {
 			if (isCurrentButton === 'current') {
@@ -75,7 +76,6 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									// onClick={() => onSelectLangHandler(item)}
 									onMouseDown={onMouseDown}
 									onMouseUp={onMouseUp}
 								/>
@@ -93,7 +93,6 @@ const LanguageSelect: FC = () => {
 				<button
 					className='button__gradient'
 					data-name='current'
-					// onClick={onLangBarHandler}
 					onMouseDown={onMouseDown}
 					onMouseUp={onMouseUp}
 				/>
