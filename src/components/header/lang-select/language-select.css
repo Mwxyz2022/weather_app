@@ -34,8 +34,8 @@
 	);
 	border: none;
 	cursor: pointer;
+	touch-action: manipulation;
 	pointer-events: auto;
-	user-select: auto;
 }
 
 .button__wrapper {
