@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useRef, useState } from 'react'
+import { FC, MouseEvent, TouchEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { imageLang } from '../../../data/imageLang'
@@ -42,7 +42,23 @@ const LanguageSelect: FC = () => {
 
 	const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
 		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
+		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
+		if (isClick) {
+			if (isCurrentButton === 'current') {
+				onLangBarHandler()
+			} else {
+				onSelectLangHandler(isCurrentButton)
+			}
+		}
+	}
+
+	const onTouchStart = (e: TouchEvent<HTMLButtonElement>) => {
+		startTouchTimestampRef.current = e.timeStamp
+	}
+
+	const onTouchEnd = (e: TouchEvent<HTMLButtonElement>) => {
+		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
 		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
 		if (isClick) {
@@ -76,6 +92,8 @@ const LanguageSelect: FC = () => {
 								className='button__lang button__lang-select'
 								onMouseDown={onMouseDown}
 								onMouseUp={onMouseUp}
+								onTouchStart={onTouchStart}
+								onTouchEnd={onTouchEnd}
 							/>
 						))}
 				</>
@@ -90,6 +108,8 @@ const LanguageSelect: FC = () => {
 				className='button__lang button__lang-current'
 				onMouseDown={onMouseDown}
 				onMouseUp={onMouseUp}
+				onTouchStart={onTouchStart}
+				onTouchEnd={onTouchEnd}
 			/>
 		</div>
 	)
