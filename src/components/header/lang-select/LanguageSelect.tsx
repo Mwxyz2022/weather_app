@@ -16,7 +16,7 @@ const LanguageSelect: FC = () => {
 	const ref = useRef<HTMLDivElement>(null)
 
 	const onSelectLangHandler = (
-		e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
+		e: TouchEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault()
 
@@ -32,7 +32,7 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onLangBarHandler = (e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>) => {
+	const onLangBarHandler = (e: TouchEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		setIsShowAllLang(isShowAllLang ? false : true)
 
