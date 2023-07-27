@@ -15,7 +15,7 @@ const LanguageSelect: FC = () => {
 
 	const ref = useRef<HTMLDivElement>(null)
 
-	const onSelectLangHandlerDesc = (
+	const onSelectLangHandler = (
 		e:
 			| PointerEvent<HTMLButtonElement>
 			| MouseEvent<HTMLButtonElement>
@@ -35,7 +35,7 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onLangBarHandlerDesk = (
+	const onLangBarHandler = (
 		e:
 			| PointerEvent<HTMLButtonElement>
 			| MouseEvent<HTMLButtonElement>
@@ -72,8 +72,8 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									onClick={onSelectLangHandlerDesc}
-									onTouchEnd={onSelectLangHandlerDesc}
+									onClick={onSelectLangHandler}
+									// onTouchEnd={onSelectLangHandler}
 								/>
 							</div>
 						))}
@@ -89,8 +89,9 @@ const LanguageSelect: FC = () => {
 				<button
 					className='button__gradient'
 					data-name='current'
-					onClick={onLangBarHandlerDesk}
-					onTouchEnd={onLangBarHandlerDesk}
+					onClick={onLangBarHandler}
+
+					// onTouchEnd={onLangBarHandler}
 				/>
 			</div>
 		</div>
