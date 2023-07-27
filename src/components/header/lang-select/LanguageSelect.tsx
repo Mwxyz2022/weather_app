@@ -15,7 +15,7 @@ const LanguageSelect: FC = () => {
 
 	const ref = useRef<HTMLButtonElement>(null)
 
-	const startTouchTimestampRef = useRef<number>(0)
+	// const startTouchTimestampRef = useRef<number>(0)
 
 	const onSelectLangHandler = (language: string) => {
 		i18n.changeLanguage(language)
