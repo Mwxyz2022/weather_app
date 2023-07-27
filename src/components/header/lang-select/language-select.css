@@ -22,7 +22,7 @@
 	touch-action: manipulation;
 }
 
-.button__lang::before {
+/* .button__lang::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -36,7 +36,7 @@
 		rgba(174, 233, 75, 0.11528361344537819) 11%,
 		rgba(0, 212, 255, 0.2329306722689075) 100%
 	);
-}
+} */
 
 .button__lang {
 	animation: showButton 0.5s ease-out;
