@@ -43,7 +43,7 @@
 	touch-action: manipulation;
 }
 
-.button__lang {
+/* .button__lang {
 	animation: showButton 0.5s ease-out;
 }
 
@@ -61,7 +61,7 @@
 
 .click {
 	animation: clickBtn 0.5s ease-out;
-}
+} */
 
 @keyframes showButton {
 	from {
