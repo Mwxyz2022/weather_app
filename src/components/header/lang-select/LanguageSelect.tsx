@@ -36,22 +36,32 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onMouseDown = (e: MouseEvent<HTMLButtonElement>) => {
-		startTouchTimestampRef.current = e.timeStamp
-	}
+	// const onMouseDown = (e: MouseEvent<HTMLButtonElement>) => {
+	// 	startTouchTimestampRef.current = e.timeStamp
+	// }
 
 	const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
-		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
 		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
-		if (isClick) {
-			if (isCurrentButton === 'current') {
-				onLangBarHandler()
-			} else {
-				onSelectLangHandler(isCurrentButton)
-			}
+		if (isCurrentButton === 'current') {
+			onLangBarHandler()
+		} else {
+			onSelectLangHandler(isCurrentButton)
 		}
 	}
+
+	// const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
+	// 	const isClick = startTouchTimestampRef.current - e.timeStamp < 500
+	// 	const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
+
+	// 	if (isClick) {
+	// 		if (isCurrentButton === 'current') {
+	// 			onLangBarHandler()
+	// 		} else {
+	// 			onSelectLangHandler(isCurrentButton)
+	// 		}
+	// 	}
+	// }
 
 	return (
 		<div
@@ -73,8 +83,9 @@ const LanguageSelect: FC = () => {
 									backgroundImage: `url(${imageLang[item]})`
 								}}
 								className='button__lang button__lang-select'
-								onMouseDown={onMouseDown}
-								onMouseUp={onMouseUp}
+								onClick={onMouseUp}
+								// onMouseDown={onMouseDown}
+								// onMouseUp={onMouseUp}
 							/>
 						))}
 				</>
@@ -87,8 +98,9 @@ const LanguageSelect: FC = () => {
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
 				className='button__lang button__lang-current'
-				onMouseDown={onMouseDown}
-				onMouseUp={onMouseUp}
+				onClick={onMouseUp}
+				// onMouseDown={onMouseDown}
+				// onMouseUp={onMouseUp}
 			/>
 		</div>
 	)
