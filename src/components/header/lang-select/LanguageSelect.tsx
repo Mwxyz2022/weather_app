@@ -1,4 +1,4 @@
-import { FC, MouseEvent, TouchEvent, useRef, useState } from 'react'
+import { FC, MouseEvent, PointerEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { imageLang } from '../../../data/imageLang'
@@ -16,7 +16,7 @@ const LanguageSelect: FC = () => {
 	const ref = useRef<HTMLDivElement>(null)
 
 	const onSelectLangHandler = (
-		e: TouchEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>
+		e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault()
 
@@ -32,7 +32,7 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onLangBarHandler = (e: TouchEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => {
+	const onLangBarHandler = (e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 		setIsShowAllLang(isShowAllLang ? false : true)
 
