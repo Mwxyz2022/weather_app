@@ -1,4 +1,4 @@
-import { FC, MouseEvent, PointerEvent, useRef, useState } from 'react'
+import { FC, MouseEvent, PointerEvent, TouchEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { imageLang } from '../../../data/imageLang'
@@ -15,8 +15,11 @@ const LanguageSelect: FC = () => {
 
 	const ref = useRef<HTMLDivElement>(null)
 
-	const onSelectLangHandler = (
-		e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>
+	const onSelectLangHandlerDesc = (
+		e:
+			| PointerEvent<HTMLButtonElement>
+			| MouseEvent<HTMLButtonElement>
+			| TouchEvent<HTMLButtonElement>
 	) => {
 		e.preventDefault()
 
@@ -32,7 +35,12 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onLangBarHandler = (e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => {
+	const onLangBarHandlerDesk = (
+		e:
+			| PointerEvent<HTMLButtonElement>
+			| MouseEvent<HTMLButtonElement>
+			| TouchEvent<HTMLButtonElement>
+	) => {
 		e.preventDefault()
 		setIsShowAllLang(isShowAllLang ? false : true)
 
@@ -64,7 +72,8 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									onClick={onSelectLangHandler}
+									onClick={onSelectLangHandlerDesc}
+									onTouchEnd={onSelectLangHandlerDesc}
 								/>
 							</div>
 						))}
@@ -77,7 +86,12 @@ const LanguageSelect: FC = () => {
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
 			>
-				<button className='button__gradient' data-name='current' onClick={onLangBarHandler} />
+				<button
+					className='button__gradient'
+					data-name='current'
+					onClick={onLangBarHandlerDesk}
+					onTouchEnd={onLangBarHandlerDesk}
+				/>
 			</div>
 		</div>
 	)
