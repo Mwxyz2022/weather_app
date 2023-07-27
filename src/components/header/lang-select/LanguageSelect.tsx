@@ -1,4 +1,4 @@
-import { FC, TouchEvent, useRef, useState } from 'react'
+import { FC, MouseEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { imageLang } from '../../../data/imageLang'
@@ -9,14 +9,17 @@ import './language-select.css'
 const LanguageSelect: FC = () => {
 	const languages = ['ua', 'en']
 
-	const [touchStart, setTouchStart] = useState(0)
 	const [currentLang, setCurrentLang] = useState<string>(initLanguage())
 	const [isShowAllLang, setIsShowAllLang] = useState(false)
 	const { i18n } = useTranslation()
 
 	const ref = useRef<HTMLDivElement>(null)
 
-	const onSelectLangHandler = (language: string) => {
+	const onSelectLangHandler = (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+
+		const language = e.currentTarget.dataset.name || ''
+
 		i18n.changeLanguage(language)
 		localStorage.setItem('language', JSON.stringify(language))
 		setCurrentLang(language)
@@ -27,32 +30,12 @@ const LanguageSelect: FC = () => {
 		}
 	}
 
-	const onLangBarHandler = () => {
+	const onLangBarHandler = (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
 		setIsShowAllLang(isShowAllLang ? false : true)
 
 		if (ref.current) {
 			ref.current.classList.remove('click')
-		}
-	}
-
-	const onTouchStart = (e: TouchEvent<HTMLButtonElement>) => {
-		setTouchStart(e.timeStamp)
-	}
-
-	const onTouchEnd = (e: TouchEvent<HTMLButtonElement>) => {
-		const touchEnd = e.timeStamp
-		console.log(e.currentTarget.dataset.name)
-
-		const isClick = touchEnd - touchStart < 300
-
-		const buttonName = e.currentTarget.dataset.name || ''
-
-		if (isClick) {
-			if (buttonName === 'current') {
-				onLangBarHandler()
-			} else {
-				onSelectLangHandler(buttonName)
-			}
 		}
 	}
 
@@ -79,9 +62,7 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									onClick={() => onSelectLangHandler(item)}
-									onTouchStart={onTouchStart}
-									onTouchEnd={onTouchEnd}
+									onClick={onSelectLangHandler}
 								/>
 							</div>
 						))}
@@ -94,13 +75,7 @@ const LanguageSelect: FC = () => {
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
 			>
-				<button
-					className='button__gradient'
-					data-name='current'
-					onClick={onLangBarHandler}
-					onTouchStart={onTouchStart}
-					onTouchEnd={onTouchEnd}
-				/>
+				<button className='button__gradient' data-name='current' onClick={onLangBarHandler} />
 			</div>
 		</div>
 	)
