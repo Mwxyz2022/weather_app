@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, MouseEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { imageLang } from '../../../data/imageLang'
@@ -14,6 +14,7 @@ const LanguageSelect: FC = () => {
 	const { i18n } = useTranslation()
 
 	const ref = useRef<HTMLDivElement>(null)
+	const startTouchTimestampRef = useRef<number>(0)
 
 	const onSelectLangHandler = (language: string) => {
 		i18n.changeLanguage(language)
@@ -31,6 +32,23 @@ const LanguageSelect: FC = () => {
 
 		if (ref.current) {
 			ref.current.classList.remove('click')
+		}
+	}
+
+	const onMouseDown = (e: MouseEvent<HTMLButtonElement>) => {
+		startTouchTimestampRef.current = e.timeStamp
+	}
+
+	const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
+		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
+		const isCurrentButton = e.currentTarget.dataset.name || ''
+
+		if (isClick) {
+			if (isCurrentButton === 'current') {
+				onLangBarHandler()
+			} else {
+				onSelectLangHandler(isCurrentButton)
+			}
 		}
 	}
 
@@ -57,7 +75,9 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									onMouseDown={() => onSelectLangHandler(item)}
+									// onClick={() => onSelectLangHandler(item)}
+									onMouseDown={onMouseDown}
+									onMouseUp={onMouseUp}
 								/>
 							</div>
 						))}
@@ -70,7 +90,13 @@ const LanguageSelect: FC = () => {
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
 			>
-				<button className='button__gradient' data-name='current' onMouseDown={onLangBarHandler} />
+				<button
+					className='button__gradient'
+					data-name='current'
+					// onClick={onLangBarHandler}
+					onMouseDown={onMouseDown}
+					onMouseUp={onMouseUp}
+				/>
 			</div>
 		</div>
 	)
