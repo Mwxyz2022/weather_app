@@ -10,16 +10,21 @@
 	transition: width 0.5s ease-out;
 }
 
-.button__wrapper {
+.button__lang {
 	position: relative;
 	display: flex;
 	width: 36px;
 	height: 22px;
 	border-radius: 5px;
 	background-size: 100% 100%;
+	border: none;
+	cursor: pointer;
+	touch-action: manipulation;
 }
 
-.button__gradient {
+.button__lang::before {
+	content: '';
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -31,34 +36,31 @@
 		rgba(174, 233, 75, 0.11528361344537819) 11%,
 		rgba(0, 212, 255, 0.2329306722689075) 100%
 	);
-	border: none;
-	cursor: pointer;
-	touch-action: manipulation;
 }
 
-/* .button__wrapper {
+.button__lang {
 	animation: showButton 0.5s ease-out;
 }
 
-.button__wrapper:hover {
+.button__lang:hover {
 	box-shadow: 0 0 3px rgba(31, 30, 4, 0.733);
 }
 
-.button__wrapper:active {
+.button__lang:active {
 	animation: pushButton 0.5s ease-out;
 }
 
-.button__wrapper-select {
+.button__lang-select {
 	animation: showButton 0.5s ease-out;
 }
 
-.button__wrapper-current {
+.button__lang-current {
 	animation: showButton 0.3s ease-out;
 }
 
 .click {
 	animation: clickBtn 0.5s ease-out;
-} */
+}
 
 @keyframes showButton {
 	from {

@@ -13,7 +13,7 @@ const LanguageSelect: FC = () => {
 	const [isShowAllLang, setIsShowAllLang] = useState(false)
 	const { i18n } = useTranslation()
 
-	const ref = useRef<HTMLDivElement>(null)
+	const ref = useRef<HTMLButtonElement>(null)
 
 	const startTouchTimestampRef = useRef<number>(0)
 
@@ -66,37 +66,30 @@ const LanguageSelect: FC = () => {
 					{languages
 						.filter(item => item !== currentLang)
 						.map(item => (
-							<div
+							<button
 								key={item}
-								className='button__wrapper button__wrapper-select'
+								data-name={item}
 								style={{
 									backgroundImage: `url(${imageLang[item]})`
 								}}
-							>
-								<button
-									data-name={item}
-									className='button__gradient'
-									onMouseDown={onMouseDown}
-									onMouseUp={onMouseUp}
-								/>
-							</div>
+								className='button__lang button__lang-select'
+								onMouseDown={onMouseDown}
+								onMouseUp={onMouseUp}
+							/>
 						))}
 				</>
 			)}
-			<div
+
+			<button
 				ref={ref}
-				className='button__wrapper button__wrapper-current'
+				data-name='current'
 				style={{
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
-			>
-				<button
-					className='button__gradient'
-					data-name='current'
-					onMouseDown={onMouseDown}
-					onMouseUp={onMouseUp}
-				/>
-			</div>
+				className='button__lang button__lang-current'
+				onMouseDown={onMouseDown}
+				onMouseUp={onMouseUp}
+			/>
 		</div>
 	)
 }
