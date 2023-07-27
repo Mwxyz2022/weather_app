@@ -57,7 +57,7 @@ const LanguageSelect: FC = () => {
 								<button
 									data-name={item}
 									className='button__gradient'
-									onClick={() => onSelectLangHandler(item)}
+									onMouseDown={() => onSelectLangHandler(item)}
 								/>
 							</div>
 						))}
@@ -70,7 +70,7 @@ const LanguageSelect: FC = () => {
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
 			>
-				<button className='button__gradient' data-name='current' onClick={onLangBarHandler} />
+				<button className='button__gradient' data-name='current' onMouseDown={onLangBarHandler} />
 			</div>
 		</div>
 	)
