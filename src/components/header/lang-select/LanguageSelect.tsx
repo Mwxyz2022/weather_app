@@ -18,7 +18,7 @@ const LanguageSelect: FC = () => {
 	const onSelectLangHandler = (
 		e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>
 	) => {
-		e.preventDefault()
+		// e.preventDefault()
 
 		const language = e.currentTarget.dataset.name || ''
 
@@ -33,7 +33,7 @@ const LanguageSelect: FC = () => {
 	}
 
 	const onLangBarHandler = (e: PointerEvent<HTMLButtonElement> | MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault()
+		// e.preventDefault()
 		setIsShowAllLang(isShowAllLang ? false : true)
 
 		if (ref.current) {
