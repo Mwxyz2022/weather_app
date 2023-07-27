@@ -42,6 +42,7 @@ const LanguageSelect: FC = () => {
 
 	const onMouseUp = (e: MouseEvent<HTMLButtonElement>) => {
 		const isClick = startTouchTimestampRef.current - e.timeStamp < 500
+
 		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
 		if (isClick) {
