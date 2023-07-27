@@ -22,6 +22,10 @@
 	touch-action: manipulation;
 }
 
+.button__lang:hover {
+	box-shadow: 0 0 3px rgba(31, 30, 4, 0.733);
+}
+
 .button__lang::before {
 	content: '';
 	position: absolute;
@@ -43,12 +47,8 @@
 	animation: showButton 0.5s ease-out;
 }
 
-.button__lang:hover {
-	box-shadow: 0 0 3px rgba(31, 30, 4, 0.733);
-}
-
 .button__lang:active {
-	animation: pushButton 0.5s ease-out;
+	animation: pushButton 0.5s ease-out 0.3s;
 }
 
 .button__lang-select {
