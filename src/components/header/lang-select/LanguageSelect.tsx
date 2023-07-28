@@ -22,7 +22,7 @@ const LanguageSelect: FC = () => {
 		setIsShowAllLang(false)
 
 		if (currentBtnRef.current) {
-			currentBtnRef.current.classList.add('click')
+			currentBtnRef.current.classList.remove('click')
 		}
 	}
 
@@ -30,7 +30,7 @@ const LanguageSelect: FC = () => {
 		setIsShowAllLang(isShowAllLang ? false : true)
 
 		if (currentBtnRef.current && isShowAllLang) {
-			currentBtnRef.current.classList.add('click')
+			currentBtnRef.current.classList.remove('click')
 		}
 	}
 
@@ -38,7 +38,7 @@ const LanguageSelect: FC = () => {
 		const isCurrentButton = e.currentTarget.getAttribute('data-name') || ''
 
 		if (currentBtnRef.current) {
-			currentBtnRef.current.classList.remove('click')
+			currentBtnRef.current.classList.add('click')
 		}
 
 		if (isCurrentButton === 'current') {
@@ -80,7 +80,7 @@ const LanguageSelect: FC = () => {
 				style={{
 					backgroundImage: `url(${imageLang[currentLang]})`
 				}}
-				className='button__lang '
+				className='button__lang'
 				onClick={onMouseUp}
 			/>
 		</div>
