@@ -90,8 +90,8 @@ const Card: FC<ICardProps> = ({ initData }) => {
 											{initData.name}, {initData.sys.country}
 										</p>
 										<img
-											style={{ width: 25, marginLeft: 8 }}
-											src={`https://openweathermap.org/images/flags/${initData.sys.country.toLowerCase()}.png`}
+											className='location--icon'
+											src={`https://flagicons.lipis.dev/flags/4x3/${initData.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
 									</div>

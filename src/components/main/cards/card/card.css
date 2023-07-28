@@ -42,6 +42,13 @@
 	font-weight: 700;
 }
 
+.location--icon {
+	margin-left: 8px;
+	width: 30px;
+	height: 20px;
+	border-radius: 4px;
+}
+
 .info__toggler {
 	font-size: 18px;
 	padding: 8px;

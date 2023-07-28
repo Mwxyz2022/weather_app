@@ -103,7 +103,7 @@ const SearchBar: FC = () => {
 		<>
 			<section className='search__container'>
 				<input
-					className='search-input'
+					className='search--input'
 					type='text'
 					placeholder={t('search_ph')}
 					onChange={searchHandler}
@@ -114,12 +114,15 @@ const SearchBar: FC = () => {
 						{cities.map((city: any) => {
 							return (
 								<li key={city.id} className='list-item' onClick={() => selectCityHandler(city)}>
-									<span>
+									<span className='item-info'>
 										<img
-											src={`https://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
+											className='info--icon'
+											src={`https://flagicons.lipis.dev/flags/4x3/${city.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
-										{city.name}, {city.sys.country}
+										<span className='info--name'>
+											{city.name}, {city.sys.country}
+										</span>
 									</span>
 									<span>{tempConvert(city.main.temp)}°C</span>
 								</li>
