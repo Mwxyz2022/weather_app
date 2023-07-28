@@ -44,19 +44,11 @@
 }
 
 .button__lang {
-	animation: showButton 0.5s ease-out;
-}
-
-.button__lang:active {
-	animation: pushButton 0.5s ease-out;
+	animation: showButton 0.3s ease-out;
 }
 
 .button__lang-select {
 	animation: showButton 0.5s ease-out;
-}
-
-.button__lang-current {
-	animation: showButton 0.3s ease-out;
 }
 
 .click {
@@ -82,16 +74,5 @@
 	to {
 		transform: scale(1);
 		opacity: 1;
-	}
-}
-
-@keyframes pushButton {
-	from {
-		transform: scale(1);
-		opacity: 1;
-	}
-	to {
-		transform: scale(0);
-		opacity: 0;
 	}
 }
