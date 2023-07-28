@@ -17,7 +17,7 @@
 		inset 0px 0px 3px 0px rgba(181, 182, 182, 0.75);
 }
 
-.search-input:focus {
+.search--input:focus {
 	outline: none;
 	border-color: rgb(84, 178, 255);
 	background-color: #effaff;
@@ -45,6 +45,7 @@
 	font-weight: 400;
 	border-bottom: 1px solid rgb(143, 229, 255);
 	background-color: rgb(255, 255, 255);
+	box-shadow: inset 0px 0px 3px 0px rgba(181, 182, 182, 0.75);
 	cursor: pointer;
 	animation: appearFromTopKeyframes 0.4s both;
 }
@@ -68,8 +69,8 @@
 
 .info--icon {
 	width: 25px;
-	height: 20px;
 	border-radius: 4px;
+	box-shadow: 0px 0px 2px 1px rgba(181, 182, 182, 0.75);
 }
 
 .info--name {

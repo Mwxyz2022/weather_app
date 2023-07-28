@@ -44,9 +44,9 @@
 
 .location--icon {
 	margin-left: 8px;
-	width: 30px;
-	height: 20px;
+	width: 35px;
 	border-radius: 4px;
+	box-shadow: 0px 0px 2px 1px rgba(181, 182, 182, 0.75);
 }
 
 .info__toggler {
