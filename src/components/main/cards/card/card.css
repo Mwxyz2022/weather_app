@@ -69,6 +69,7 @@
 }
 
 .temperature__icon {
+	padding: 20px;
 }
 
 .temperature__value {
