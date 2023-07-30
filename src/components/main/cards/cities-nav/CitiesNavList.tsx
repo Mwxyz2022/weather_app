@@ -1,5 +1,6 @@
 import { FC, useContext, useState } from 'react'
 import { AiTwotoneStar } from 'react-icons/ai'
+import { VscListFlat } from 'react-icons/vsc'
 import { Link, useParams } from 'react-router-dom'
 
 import { AppContext } from '../../../../context/AppContext'
@@ -37,10 +38,17 @@ const CitiesNavList: FC = () => {
 							onClick={() => setIsOpenList(prev => !prev)}
 						>
 							<Link className='city-link' to={`/city/${city.id}`}>
-								{city.name}
 								{isFavoriteCity && (
-									<AiTwotoneStar size={15} style={{ color: 'orange', paddingTop: 2 }} />
+									<AiTwotoneStar
+										size={15}
+										style={{ color: 'orange', paddingTop: 2, marginRight: 4 }}
+									/>
 								)}
+								{city.name}
+
+								{isMobileScreen && !isOpenList && isActive ? (
+									<VscListFlat style={{ marginLeft: 8 }} />
+								) : null}
 							</Link>
 						</li>
 					)

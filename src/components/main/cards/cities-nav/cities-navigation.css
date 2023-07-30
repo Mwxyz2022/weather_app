@@ -37,9 +37,13 @@
 }
 
 .city-link {
-	padding: 8px 16px;
+	padding: 8px;
 	height: 100%;
+	width: 100%;
 	color: #551a8b;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 	border-radius: 4px;
 	text-decoration: none;
 	overflow: hidden;
