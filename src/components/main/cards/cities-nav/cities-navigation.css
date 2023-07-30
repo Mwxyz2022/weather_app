@@ -1,0 +1,122 @@
+.cards__container {
+	position: relative;
+}
+
+.city-nav {
+	margin-bottom: 16px;
+	margin-left: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	border-radius: 4px;
+	border: 1px solid gray;
+	list-style-type: none;
+	z-index: 8;
+}
+
+.city-nav-item {
+	display: none;
+	background-color: #ffffff;
+	animation: appearFromInsideKeyframes 0.2s ease-out;
+}
+
+.city-nav-item:first-child {
+	border-radius: 4px 4px 0 0;
+}
+
+.city-nav-item:last-child {
+	border-radius: 0 0 4px 4px;
+}
+
+.city-nav-item.link-active {
+	display: flex;
+	background-color: #b3ebff;
+}
+
+.city-link {
+	padding: 8px 16px;
+	height: 100%;
+	color: #551a8b;
+	border-radius: 4px;
+	text-decoration: none;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.card__wrapper {
+	padding: 16px;
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	background-color: #ffffff;
+	border-radius: 0 4px 4px 4px;
+	box-shadow: 0px 0px 3px 2px rgba(58, 79, 201, 0.514);
+	z-index: 6;
+}
+
+@media screen and (min-width: 750px) {
+	.city-nav {
+		position: relative;
+		display: flex;
+		width: fit-content;
+		border-radius: 4px;
+		list-style-type: none;
+	}
+
+	.city-nav::before {
+		content: '';
+		position: absolute;
+		top: 3px;
+		left: 2px;
+		width: calc(100% - 5px);
+		height: 100%;
+		border-radius: 3px;
+		box-shadow: 0px 0px 3px 4px rgba(58, 79, 201, 0.514);
+		z-index: 2;
+	}
+
+	.city-nav-item {
+		display: flex;
+		align-items: center;
+		background-color: #b3ebff;
+		border-radius: 4px 4px 0 0;
+		overflow: hidden;
+		box-shadow: 0px 0px 3px 1px rgba(58, 79, 201, 0.514);
+		z-index: 3;
+	}
+
+	.city-nav-item.link-active {
+		background-color: #ffffff;
+		box-shadow: none;
+		z-index: 7;
+	}
+
+	.city-link:active {
+		color: #f4c905;
+	}
+
+	.city-link {
+		height: 100%;
+		text-decoration: none;
+		padding: 3px 16px;
+		color: #551a8b;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+}
+
+@keyframes appearFromInsideKeyframes {
+	from {
+		transform: scale(0.8);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}

@@ -8,6 +8,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: rgba(108, 221, 255, 0.356);
+	z-index: 20;
 }
 
 .modal__content {
