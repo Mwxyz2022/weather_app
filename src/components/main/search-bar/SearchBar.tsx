@@ -103,24 +103,24 @@ const SearchBar: FC = () => {
 		<>
 			<section className='search__container'>
 				<input
-					className='search--input'
+					className='search__input'
 					type='text'
 					placeholder={t('search_ph')}
 					onChange={searchHandler}
 					value={value}
 				/>
 				{!!cities.length && (
-					<ul className='search-list'>
+					<ul className='search__list'>
 						{cities.map((city: any) => {
 							return (
-								<li key={city.id} className='list-item' onClick={() => selectCityHandler(city)}>
-									<span className='item-info'>
+								<li key={city.id} className='list__items' onClick={() => selectCityHandler(city)}>
+									<span className='item__info'>
 										<img
-											className='info--icon'
+											className='info__icon'
 											src={`https://flagicons.lipis.dev/flags/4x3/${city.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
-										<span className='info--name'>
+										<span className='info__name'>
 											{city.name}, {city.sys.country}
 										</span>
 									</span>

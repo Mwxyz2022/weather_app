@@ -5,13 +5,14 @@
 }
 
 html,
-body {
+body,
+input {
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size: 16px;
 	color: #551a8b;
 }
 
-#root {
+input #root {
 	position: relative;
 	display: flex;
 	flex-direction: column;

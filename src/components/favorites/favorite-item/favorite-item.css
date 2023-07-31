@@ -1,6 +1,6 @@
 .favorite__city {
 	margin-bottom: 8px;
-	padding: 8px 16px;
+	padding: 8px;
 	display: flex;
 	flex-wrap: nowrap;
 	flex-direction: column;
@@ -31,11 +31,14 @@
 }
 
 .preview__icon {
-	margin-right: 8px;
+	margin: 0 8px;
 	width: 25px;
+	height: 18px;
 	border-radius: 4px;
 	box-shadow: 0px 0px 2px 1px rgba(181, 182, 182, 0.75);
+	object-fit: cover;
 }
+
 .preview__name {
 	white-space: nowrap;
 	overflow: hidden;
