@@ -68,8 +68,6 @@ const Card: FC<ICardProps> = ({ initData }) => {
 		return <Loader />
 	}
 
-	console.log(cardData.iconIndex)
-
 	return (
 		<>
 			{cardData && (
