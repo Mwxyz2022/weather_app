@@ -19,7 +19,7 @@ const CitiesNavList: FC = () => {
 	const isMobileScreen = screenWidth < 750
 
 	return (
-		<ul className='city-nav'>
+		<ul className='city__navigation'>
 			{!!storedCities.length &&
 				storedCities.map((city: ICityData) => {
 					const isActive = cityId === `${city.id}`
@@ -53,7 +53,7 @@ const CitiesNavList: FC = () => {
 					return (
 						<li
 							key={city.id}
-							className={isActive ? 'city-nav-item link-active' : 'city-nav-item'}
+							className={isActive ? 'navigation__item navigation__item-active' : 'navigation__item'}
 							style={{
 								display: getDisplay(),
 								borderRadius: getBorderRadius()
@@ -70,7 +70,7 @@ const CitiesNavList: FC = () => {
 								)}
 
 								{isMobileScreen && !isOpenList && isActive ? (
-									<span className='list__icon'>
+									<span className='city-link__icon'>
 										<VscListFlat style={{ marginLeft: 8 }} />
 										<span className='icon__counter'>{storedCities.length}/5</span>
 									</span>

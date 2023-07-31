@@ -1,4 +1,4 @@
-.modal--delete {
+.modal__container {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -12,6 +12,7 @@
 }
 
 .modal__content {
+	margin: 15px;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;

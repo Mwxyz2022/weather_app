@@ -30,11 +30,11 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 
 	return (
 		<article className='favorite__city'>
-			<section className='city__information'>
+			<section className='city__information' onClick={onShowHandler}>
 				<span className='information__name'>
 					<img
-						style={{ width: 25, height: 20, marginRight: 8, paddingTop: 2 }}
-						src={`https://openweathermap.org/images/flags/${cityData.sys.country.toLowerCase()}.png`}
+						className='information__icon'
+						src={`https://flagicons.lipis.dev/flags/4x3/${cityData.sys.country.toLowerCase()}.svg`}
 						alt='flag'
 					/>
 					<p>

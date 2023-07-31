@@ -28,12 +28,12 @@ const Header: FC = () => {
 				<LanguageSelect />
 			</section>
 
-			<nav className='navigation-page'>
-				<div className='links-wrapper'>
-					<Link className={isFavPage ? 'link-page' : 'link-page selected'} to={mainNavigate()}>
+			<nav className='navigation__page'>
+				<div className='links__wrapper'>
+					<Link className={isFavPage ? 'link__page' : 'link__page selected'} to={mainNavigate()}>
 						<span>{t('main')}</span>
 					</Link>
-					<Link className={!isFavPage ? 'link-page' : 'link-page selected'} to='/favorites'>
+					<Link className={!isFavPage ? 'link__page' : 'link__page selected'} to='/favorites'>
 						{t('favorites')}
 					</Link>
 				</div>
