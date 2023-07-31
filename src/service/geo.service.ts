@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 
 import { geoApi } from '../api/api'
 
-const appid = process.env.REACT_APP_GEO_KEY
+const appid = process.env.REACT_APP_MY_KEY
 
 export const GeoService = {
 	async getCityInfo(lat: number, lon: number): Promise<AxiosResponse> {

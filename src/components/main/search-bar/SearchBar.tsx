@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
+import iconWeather from '../../../data/imageWeather'
 import { WeatherService } from '../../../service/weather.service'
 import { ICityData } from '../../../types/response.types'
 import { AppContextValue } from '../../../types/types'
-import { tempConvert } from '../../../utils/temp'
 import Notification from '../../modal/notification/Notification'
 
 import './search-bar.css'
@@ -122,11 +122,19 @@ const SearchBar: FC = () => {
 											src={`https://flagicons.lipis.dev/flags/4x3/${city.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
+
 										<span className='info__name'>
 											{city.name}, {city.sys.country}
 										</span>
 									</span>
-									<span>{tempConvert(city.main.temp)}°C</span>
+
+									<img
+										src={iconWeather[city.weather[0].icon]}
+										alt='weather icon'
+										style={{ width: '25px', height: '25px' }}
+									/>
+
+									<span>{Math.round(city.main.temp)}°C</span>
 								</li>
 							)
 						})}
