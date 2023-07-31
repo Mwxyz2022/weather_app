@@ -112,6 +112,8 @@ const SearchBar: FC = () => {
 				{!!cities.length && (
 					<ul className='search__list'>
 						{cities.map((city: any) => {
+							console.log(city)
+
 							return (
 								<li key={city.id} className='list__items' onClick={() => selectCityHandler(city)}>
 									<span className='item__info'>
