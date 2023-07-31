@@ -1,9 +1,11 @@
 import { AxiosResponse } from 'axios'
 
-import { api } from '../api/api'
+import { api, geoApi } from '../api/api'
 import { ICityData, WeatherData } from '../types/response.types'
 
 const appid = process.env.REACT_APP_WEATHER_KEY
+
+const myAppId = process.env.REACT_APP_MY_KEY
 
 interface ICityListResponse {
 	cod: string
@@ -15,7 +17,7 @@ interface ICityListResponse {
 export const WeatherService = {
 	async findByCity(city: string | undefined): Promise<AxiosResponse<ICityListResponse>> {
 		try {
-			const response = await api.get(`data/2.5/find?q=${city}&appid=${appid}&lang=en`)
+			const response = await geoApi.get(`data/2.5/find?q=${city}&appid=${myAppId}&units=metric`)
 			return response
 		} catch (error: any) {
 			throw new Error('Error fetching find city data: ' + error.message)
