@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react'
+import { FC, MouseEvent, useContext, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineClose } from 'react-icons/md'
 
@@ -17,7 +17,8 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 
 	const { id: cityId } = cityData
 
-	const onShowHandler = () => {
+	const onShowHandler = (event: MouseEvent) => {
+		event.stopPropagation()
 		setIsShow(prev => !prev)
 	}
 

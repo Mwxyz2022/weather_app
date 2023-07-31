@@ -6,9 +6,6 @@
 	background-color: #fff;
 	box-shadow: 0px 0px 3px 1px rgba(58, 79, 201, 0.514);
 }
-.favorite__city:first-child {
-	margin: 0;
-}
 
 .city__information {
 	display: flex;
