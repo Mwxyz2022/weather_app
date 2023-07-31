@@ -30,7 +30,7 @@ const ModalDeleteCity: FC<IModalDeleteCityProps> = ({ setIsShowDeleteModal }) =>
 	}
 
 	return (
-		<div className='modal--delete'>
+		<div className='modal__container'>
 			<div className='modal__content'>
 				<h2 className='modal__title'>{t('modal_delete_title')}</h2>
 				<p className='modal__description'>{t('modal_delete_description')}</p>

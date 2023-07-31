@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react'
+import { FC, MouseEvent, useContext, useState } from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineClose } from 'react-icons/md'
 
@@ -6,6 +6,8 @@ import { AppContext } from '../../../context/AppContext'
 import { ICityData } from '../../../types/response.types'
 import { AppContextValue } from '../../../types/types'
 import Card from '../../main/cards/card/Card'
+
+import './favorite-item.css'
 
 interface IFavoriteItemProps {
 	cityData: ICityData
@@ -17,7 +19,8 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 
 	const { id: cityId } = cityData
 
-	const onShowHandler = () => {
+	const onShowHandler = (event: MouseEvent) => {
+		event.stopPropagation()
 		setIsShow(prev => !prev)
 	}
 
@@ -30,18 +33,18 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 
 	return (
 		<article className='favorite__city'>
-			<section className='city__information'>
-				<span className='information__name'>
+			<section className='city__information' onClick={onShowHandler}>
+				<span className='information_preview'>
 					<img
-						style={{ width: 25, height: 20, marginRight: 8, paddingTop: 2 }}
-						src={`https://openweathermap.org/images/flags/${cityData.sys.country.toLowerCase()}.png`}
+						className='preview__icon'
+						src={`https://flagicons.lipis.dev/flags/4x3/${cityData.sys.country.toLowerCase()}.svg`}
 						alt='flag'
 					/>
-					<p>
+
+					<p className='preview__name'>
 						{cityData.name}, {cityData.sys.country}
 					</p>
 				</span>
-
 				<span className='information__actions'>
 					<button className='actions__unfold' onClick={onShowHandler}>
 						<IoIosArrowBack size={30} style={{ transform: isShow ? 'rotate(270deg)' : 'none' }} />

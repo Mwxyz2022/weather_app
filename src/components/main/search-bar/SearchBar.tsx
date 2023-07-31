@@ -87,27 +87,44 @@ const SearchBar: FC = () => {
 		getCity()
 	}, [search])
 
+	useEffect(() => {
+		const items = document.querySelectorAll('.list-item') as NodeListOf<HTMLElement>
+
+		items.forEach((item, index) => {
+			if (items.length === 1) {
+				item.style.borderRadius = `2px 2px 2px 2px`
+			}
+
+			item.style.animationDelay = `${index * 0.1}s`
+		})
+	}, [cities])
+
 	return (
 		<>
 			<section className='search__container'>
 				<input
-					className='search-input'
+					className='search__input'
 					type='text'
 					placeholder={t('search_ph')}
 					onChange={searchHandler}
 					value={value}
 				/>
 				{!!cities.length && (
-					<ul className='search-list'>
+					<ul className='search__list'>
 						{cities.map((city: any) => {
+							console.log(city)
+
 							return (
-								<li key={city.id} className='list-item' onClick={() => selectCityHandler(city)}>
-									<span>
+								<li key={city.id} className='list__items' onClick={() => selectCityHandler(city)}>
+									<span className='item__info'>
 										<img
-											src={`https://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
+											className='info__icon'
+											src={`https://flagicons.lipis.dev/flags/4x3/${city.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
-										{city.name},{city.sys.country}
+										<span className='info__name'>
+											{city.name}, {city.sys.country}
+										</span>
 									</span>
 									<span>{tempConvert(city.main.temp)}°C</span>
 								</li>

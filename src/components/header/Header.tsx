@@ -28,13 +28,15 @@ const Header: FC = () => {
 				<LanguageSelect />
 			</section>
 
-			<nav className='navigation'>
-				<Link className={isFavPage ? 'link' : 'link active'} to={mainNavigate()}>
-					{t('main')}
-				</Link>
-				<Link className={!isFavPage ? 'link' : 'link active'} to='/favorites'>
-					{t('favorites')}
-				</Link>
+			<nav className='navigation__page'>
+				<div className='links__wrapper'>
+					<Link className={isFavPage ? 'link__page' : 'link__page selected'} to={mainNavigate()}>
+						<span>{t('main')}</span>
+					</Link>
+					<Link className={!isFavPage ? 'link__page' : 'link__page selected'} to='/favorites'>
+						{t('favorites')}
+					</Link>
+				</div>
 			</nav>
 		</header>
 	)

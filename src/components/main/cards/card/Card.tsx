@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom'
 import arrow from '../../../../assets/img/arrow.svg'
 import pressure from '../../../../assets/img/pressure.svg'
 import { AppContext } from '../../../../context/AppContext'
+import iconWeather from '../../../../data/imageWeather'
 import { WeatherService } from '../../../../service/weather.service'
 import { ICityData } from '../../../../types/response.types'
 import { AppContextValue } from '../../../../types/types'
@@ -77,8 +78,9 @@ const Card: FC<ICardProps> = ({ initData }) => {
 								<div className='temperature'>
 									<img
 										className='temperature__icon'
-										src={`https://openweathermap.org/img/wn/${cardData.iconIndex}@2x.png`}
+										src={iconWeather[cardData.iconIndex]}
 										alt='weather icon'
+										style={{ maxWidth: 100, minHeight: 100, width: '100%', height: '100%' }}
 									/>
 									<span className='temperature__value'>{`${cardData.currentTemp}°C`}</span>
 								</div>
@@ -89,8 +91,8 @@ const Card: FC<ICardProps> = ({ initData }) => {
 											{initData.name}, {initData.sys.country}
 										</p>
 										<img
-											style={{ width: 25, marginLeft: 8 }}
-											src={`https://openweathermap.org/images/flags/${initData.sys.country.toLowerCase()}.png`}
+											className='location__icon'
+											src={`https://flagicons.lipis.dev/flags/4x3/${initData.sys.country.toLowerCase()}.svg`}
 											alt='flag'
 										/>
 									</div>

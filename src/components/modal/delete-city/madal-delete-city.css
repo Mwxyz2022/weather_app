@@ -1,4 +1,4 @@
-.modal--delete {
+.modal__container {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -8,9 +8,11 @@
 	justify-content: center;
 	align-items: center;
 	background-color: rgba(108, 221, 255, 0.356);
+	z-index: 20;
 }
 
 .modal__content {
+	margin: 15px;
 	padding: 16px;
 	display: flex;
 	flex-direction: column;
