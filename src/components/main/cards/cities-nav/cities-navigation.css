@@ -1,34 +1,34 @@
 .cards__container {
 	position: relative;
+	height: fit-content;
 }
 
 .city-nav {
-	margin-bottom: 16px;
-	margin-left: auto;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: -50px;
 	display: flex;
 	flex-direction: column;
-	width: fit-content;
 	border-radius: 4px;
-	border: 1px solid gray;
+	border: 1px solid #0bbcfc;
+	box-shadow: 0px 3px 28px 0px rgba(32, 160, 245, 0.75);
 	list-style-type: none;
-	z-index: 8;
+	z-index: 2;
 }
 
-.city-nav-item {
-	display: none;
-	background-color: #ffffff;
-	animation: appearFromInsideKeyframes 0.2s ease-out;
-}
-
-.city-nav-item:first-child {
+.city-nav :first-child {
 	border-radius: 4px 4px 0 0;
 }
 
-.city-nav-item:last-child {
+.city-nav :last-child {
+	border-bottom: none;
 	border-radius: 0 0 4px 4px;
+}
+
+.city-nav-item {
+	background-color: #ffffff;
+	border-bottom: 1px solid #69d6fd;
+	box-shadow: inset 0px 0px 3px 1px rgba(181, 182, 182, 0.75);
+	animation: appearFromInsideKeyframes 0.2s ease-out;
 }
 
 .city-nav-item.link-active {
@@ -42,7 +42,6 @@
 	width: 100%;
 	color: #551a8b;
 	display: flex;
-	justify-content: flex-end;
 	align-items: center;
 	border-radius: 4px;
 	text-decoration: none;
@@ -51,66 +50,88 @@
 	text-overflow: ellipsis;
 }
 
-.card__wrapper {
-	padding: 16px;
+.list__icon {
+	position: relative;
+}
+
+.icon__counter {
 	position: absolute;
-	top: 50px;
+	top: 11px;
+	right: 0;
+	font-size: 6px;
+	background-color: #b3ebff;
+}
+
+.card__wrapper {
+	margin-top: 65px;
+	padding: 16px;
 	width: 100%;
 	background-color: #ffffff;
-	border-radius: 0 4px 4px 4px;
+	border-radius: 4px;
 	box-shadow: 0px 0px 3px 2px rgba(58, 79, 201, 0.514);
-	z-index: 6;
 }
 
 @media screen and (min-width: 750px) {
+	.cards__container {
+		position: static;
+	}
+
 	.city-nav {
-		position: relative;
+		position: static;
 		display: flex;
+		flex-direction: row;
 		width: fit-content;
+		border: none;
 		border-radius: 4px;
 		list-style-type: none;
 	}
 
-	.city-nav::before {
-		content: '';
-		position: absolute;
-		top: 3px;
-		left: 2px;
-		width: calc(100% - 5px);
-		height: 100%;
-		border-radius: 3px;
-		box-shadow: 0px 0px 3px 4px rgba(58, 79, 201, 0.514);
-		z-index: 2;
-	}
-
 	.city-nav-item {
-		display: flex;
-		align-items: center;
+		border: none;
 		background-color: #b3ebff;
-		border-radius: 4px 4px 0 0;
-		overflow: hidden;
 		box-shadow: 0px 0px 3px 1px rgba(58, 79, 201, 0.514);
-		z-index: 3;
 	}
 
 	.city-nav-item.link-active {
+		position: relative;
 		background-color: #ffffff;
 		box-shadow: none;
-		z-index: 7;
+		z-index: 4;
 	}
 
-	.city-link:active {
-		color: #f4c905;
-	}
-
-	.city-link {
+	.link-active::before {
+		content: '';
+		position: absolute;
+		top: 0;
 		height: 100%;
-		text-decoration: none;
-		padding: 3px 16px;
-		color: #551a8b;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		width: 100%;
+		border-radius: 4px 4px 0 0;
+		box-shadow: 0px 0px 3px 1px rgba(58, 79, 201, 0.514);
+		z-index: -10;
+	}
+
+	.link-active::after {
+		content: '';
+		position: absolute;
+		bottom: -5px;
+		left: -3px;
+		height: 5px;
+		width: calc(100% + 6px);
+		background-color: #ffffff;
+		z-index: -10;
+	}
+
+	.link-active:first-child::after {
+		left: 0;
+		width: calc(100% + 3px);
+	}
+
+	.card__wrapper {
+		margin-top: 0;
+		position: relative;
+		top: 0;
+		border-radius: 0 4px 4px 4px;
+		z-index: 3;
 	}
 }
 
