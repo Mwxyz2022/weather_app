@@ -5,13 +5,15 @@ import { MdOutlineClose } from 'react-icons/md'
 import { useLocation } from 'react-router-dom'
 
 import arrow from '../../../../assets/img/arrow.svg'
-import pressure from '../../../../assets/img/pressure.svg'
+import pressureSVG from '../../../../assets/img/pressure.svg'
 import { AppContext } from '../../../../context/AppContext'
 import iconWeather from '../../../../data/imageWeather'
+import { weatherDescriptionCode } from '../../../../data/weatherDescription'
 import { WeatherService } from '../../../../service/weather.service'
 import { ICityData } from '../../../../types/response.types'
 import { AppContextValue } from '../../../../types/types'
-import { getStructuredData } from '../../../../utils/parse-data/parse-data'
+import { formatTime } from '../../../../utils/format-time'
+import { ICardData, getStructuredData } from '../../../../utils/parse-data/parse-data'
 import Loader from '../../../loader/Loader'
 import ModalPortal from '../../../modal/ModalPortal'
 import ModalDeleteCity from '../../../modal/delete-city/ModalDeleteCity'
@@ -31,9 +33,9 @@ const Card: FC<ICardProps> = ({ initData }) => {
 	const [isDayChart, setIsDayChart] = useState<boolean>(true)
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState<boolean>(false)
 
-	const [cardData, setCardData] = useState<any>(null)
+	const [cardData, setCardData] = useState<ICardData | null>(null)
 	const { pathname } = useLocation()
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 
 	const isCityPage = pathname.startsWith('/city/')
 
@@ -112,9 +114,12 @@ const Card: FC<ICardProps> = ({ initData }) => {
 						</div>
 
 						<div className='details'>
-							<time className='data__date'>{cardData.localTime}</time>
+							<time className='data__date'>
+								{formatTime(cardData.currentDate, cardData.timezoneOffset, i18n.language)}
+							</time>
 							<p className='details__feels'>
-								{`Feels like ${cardData.feelsLikeTemp}°C. ${cardData.descriptionWeather}. ${cardData.windSpeedString}`}
+								{t('card_feels_like', { feelsLikeTemp: cardData.feelsLikeTemp })}{' '}
+								{t(weatherDescriptionCode[cardData.weatherId])} {t(cardData.windSpeedDescription)}
 							</p>
 
 							<div className='details__description'>
@@ -127,32 +132,48 @@ const Card: FC<ICardProps> = ({ initData }) => {
 											transform: `rotate(${cardData.windDeg}deg)`
 										}}
 									/>
-									<span className='wind__info'>{`${cardData.windSpeed}m/s ${cardData.windCompassString}`}</span>
+									<span className='wind__info'>
+										{t('card_wind_speed', { windSpeed: cardData.windSpeed })}{' '}
+										{t(cardData.windDirection)}
+									</span>
 								</div>
 								<div className='description__pressure'>
-									<img src={pressure} alt='pressure' className='pressure__icon' />
-									<span className='pressure__info'>{`${cardData.pressure}hPa`}</span>
+									<img src={pressureSVG} alt='pressure' className='pressure__icon' />
+									<span className='pressure__info'>
+										{t('card_pressure', { pressure: cardData.pressure })}
+									</span>
 								</div>
 							</div>
 
 							<div className='details__description'>
-								<span className='description__item'>{`Humidity: ${cardData.humidity}%`}</span>
-								<span className='description__item'>{`UV: ${cardData.ultraviolet}`}</span>
+								<span className='description__item'>
+									{t('card_humidity', { humidity: cardData.humidity })}
+								</span>
+								<span className='description__item'>{`${t('card_ultraviolet')} ${
+									cardData.ultraviolet
+								}`}</span>
 							</div>
 
 							<div className='details__description'>
-								<span className='description__item'>{`Dew point: ${cardData.dewPoint}°C`}</span>
-								<span className='description__item'>{`Visibility: ${cardData.visibility}kM`}</span>
+								<span className='description__item'>
+									{t('card_dev_point', { devPoint: cardData.dewPoint })}
+								</span>
+								<span className='description__item'>
+									{t('card_visibility', { visibility: cardData.visibility })}
+								</span>
 							</div>
 						</div>
 					</div>
 					<div className='chart__container'>
 						{isDayChart ? (
-							<ChartDay cardInfo={cardData.hourlyData} />
+							<ChartDay hourlyData={cardData.hourlyData} timezoneOffset={cardData.timezoneOffset} />
 						) : (
-							<ChartFiveDay cardInfo={cardData.dailyData} />
+							<ChartFiveDay
+								dailyData={cardData.dailyData}
+								timezoneOffset={cardData.timezoneOffset}
+							/>
 						)}
-						<button className='info__toggler' onClick={onChartHandler}>
+						<button className='chart__button' onClick={onChartHandler}>
 							{isDayChart ? t('five_day_forecast') : t('day_forecast')}
 						</button>
 					</div>

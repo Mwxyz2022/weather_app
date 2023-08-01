@@ -10,15 +10,6 @@
 	max-width: 350px;
 }
 
-.chart__container {
-	padding: 16px;
-	margin-left: 16px;
-	width: 100%;
-	border: 1px solid #757575;
-	border-radius: 8px;
-	background-color: #fff;
-}
-
 .info {
 	display: flex;
 	flex-direction: row;
@@ -52,19 +43,6 @@
 	object-fit: cover;
 }
 
-.info__toggler {
-	font-size: 18px;
-	padding: 8px;
-	width: 150px;
-	border: none;
-	border-radius: 4px;
-	background-color: #b4ebff;
-	cursor: pointer;
-}
-.info__toggler:hover {
-	background-color: #85dfff;
-}
-
 .temperature {
 	display: flex;
 	align-items: center;
@@ -79,8 +57,13 @@
 	font-size: 36px;
 }
 
+.details {
+	margin-top: 8px;
+}
+
 .details__feels {
-	margin-bottom: 8px;
+	margin: 4px 0 8px;
+
 	width: 100%;
 }
 
@@ -114,6 +97,29 @@
 	background-color: transparent;
 	color: #3dcbff;
 	cursor: pointer;
+}
+
+.chart__container {
+	padding: 16px;
+	margin-left: 16px;
+	width: 100%;
+	border: 1px solid #12ace4;
+	border-radius: 8px;
+	background-color: #fff;
+}
+
+.chart__button {
+	padding: 8px;
+	max-width: 150px;
+	width: 100%;
+	color: #551a8b;
+	border: none;
+	border-radius: 4px;
+	background-color: #b4ebff;
+	cursor: pointer;
+}
+.chart__button:hover {
+	background-color: #85dfff;
 }
 
 /* меньше 900px 👇*/
