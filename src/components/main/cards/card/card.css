@@ -79,8 +79,13 @@
 	font-size: 36px;
 }
 
+.details {
+	margin-top: 8px;
+}
+
 .details__feels {
-	margin-bottom: 8px;
+	margin: 4px 0 8px;
+
 	width: 100%;
 }
 

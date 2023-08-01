@@ -1,28 +1,40 @@
-import moment from 'moment'
-
-import { WeatherData } from '../../types/response.types'
-import { degToCompass } from '../deg-compass'
+import { ChartFormItem, WeatherData } from '../../types/response.types'
+import { getWindDirection } from '../wind-direction'
 import { describeWindSpeed } from '../wind-speed'
 
-import { transformWeatherData } from './transformWeaterData'
+import { transformWeatherData } from './transformWeatherData'
 
-export const getStructuredData = (weatherInfo: WeatherData) => {
+export interface ICardData {
+	iconIndex: string
+	currentTemp: number
+	feelsLikeTemp: number
+	currentDate: number
+	timezoneOffset: number
+	weatherId: number
+	windSpeedDescription: string
+	windDeg: number
+	windSpeed: number
+	windDirection: string
+	pressure: number
+	humidity: number
+	ultraviolet: number
+	dewPoint: number
+	visibility: string
+	hourlyData: ChartFormItem[]
+	dailyData: ChartFormItem[]
+}
+
+export const getStructuredData = (weatherInfo: WeatherData): ICardData => {
 	const iconIndex = weatherInfo.current.weather[0].icon
 	const currentTemp = Math.round(weatherInfo.current.temp)
 	const feelsLikeTemp = Math.round(weatherInfo.current.feels_like)
-
-	let descriptionWeather = weatherInfo.current.weather[0].description
-	descriptionWeather = descriptionWeather.charAt(0).toUpperCase() + descriptionWeather.slice(1)
-
-	const localTime = moment
-		.unix(weatherInfo.current.dt)
-		.utcOffset(weatherInfo.timezone_offset / 60)
-		.format('MMM DD, h:mmA')
-
-	const windSpeedString = describeWindSpeed(weatherInfo.current.wind_speed)
+	const currentDate = weatherInfo.current.dt
+	const timezoneOffset = weatherInfo.timezone_offset
+	const weatherId = weatherInfo.current.weather[0].id
+	const windSpeedDescription = describeWindSpeed(weatherInfo.current.wind_speed)
 	const windDeg = weatherInfo.current.wind_deg
 	const windSpeed = Math.round(weatherInfo.current.wind_speed * 10) / 10
-	const windCompassString = degToCompass(weatherInfo.current.wind_deg)
+	const windDirection = getWindDirection(weatherInfo.current.wind_deg)
 	const pressure = weatherInfo.current.pressure
 	const humidity = weatherInfo.current.humidity
 	const ultraviolet = Math.round(weatherInfo.current.uvi)
@@ -35,12 +47,13 @@ export const getStructuredData = (weatherInfo: WeatherData) => {
 		iconIndex,
 		currentTemp,
 		feelsLikeTemp,
-		descriptionWeather,
-		localTime,
-		windSpeedString,
+		currentDate,
+		timezoneOffset,
+		weatherId,
+		windSpeedDescription,
 		windDeg,
 		windSpeed,
-		windCompassString,
+		windDirection,
 		pressure,
 		humidity,
 		ultraviolet,
