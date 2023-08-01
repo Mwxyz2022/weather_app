@@ -32,12 +32,12 @@ interface CurrentWeather {
 	uvi: number
 }
 
-interface HourlyWeather {
+export interface HourlyWeather {
 	dt: number
 	temp: number
 }
 
-interface DailyWeather {
+export interface DailyWeather {
 	dt: number
 	temp: Temp
 }

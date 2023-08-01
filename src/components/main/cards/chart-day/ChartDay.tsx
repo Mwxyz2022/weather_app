@@ -1,24 +1,36 @@
 import { ChartOptions } from 'chart.js'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import { useTranslation } from 'react-i18next'
 
-import { ChartFormItem } from '../../../../types/response.types'
+import { HourlyWeather } from '../../../../types/response.types'
 
 interface IChartDayProps {
-	cardInfo: ChartFormItem[]
+	hourlyData: HourlyWeather[]
+	timezoneOffset: number
 }
 
-const ChartDay: React.FC<IChartDayProps> = ({ cardInfo }) => {
+const ChartDay: React.FC<IChartDayProps> = ({ hourlyData, timezoneOffset }) => {
 	const [chartKey, setChartKey] = useState(Math.random())
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
+
+	const timeFormat = i18n.language === 'ua' ? 'H:mm' : 'h A'
+
+	const dataForDay = hourlyData.slice(0, 24)
 
 	const data = {
-		labels: cardInfo.map(item => item.period),
+		labels: dataForDay.map(item =>
+			moment
+				.unix(item.dt)
+				.utcOffset(timezoneOffset / 60)
+				.locale(i18n.language)
+				.format(timeFormat)
+		),
 		datasets: [
 			{
 				label: 'Temperature',
-				data: cardInfo.map(item => item.temp),
+				data: dataForDay.map(item => Math.round(item.temp)),
 				borderColor: 'rgb(75, 192, 192)',
 				fill: false
 			}

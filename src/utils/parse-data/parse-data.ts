@@ -1,8 +1,6 @@
-import { ChartFormItem, WeatherData } from '../../types/response.types'
+import { DailyWeather, HourlyWeather, WeatherData } from '../../types/response.types'
 import { getWindDirection } from '../wind-direction'
 import { describeWindSpeed } from '../wind-speed'
-
-import { transformWeatherData } from './transformWeatherData'
 
 export interface ICardData {
 	iconIndex: string
@@ -20,8 +18,8 @@ export interface ICardData {
 	ultraviolet: number
 	dewPoint: number
 	visibility: string
-	hourlyData: ChartFormItem[]
-	dailyData: ChartFormItem[]
+	hourlyData: HourlyWeather[]
+	dailyData: DailyWeather[]
 }
 
 export const getStructuredData = (weatherInfo: WeatherData): ICardData => {
@@ -41,7 +39,8 @@ export const getStructuredData = (weatherInfo: WeatherData): ICardData => {
 	const dewPoint = Math.round(weatherInfo.current.dew_point)
 	const visibility = (Number(weatherInfo.current.visibility) / 1000).toFixed(1)
 
-	const { hourly: hourlyData, daily: dailyData } = transformWeatherData(weatherInfo)
+	const hourlyData = weatherInfo.hourly
+	const dailyData = weatherInfo.daily
 
 	return {
 		iconIndex,

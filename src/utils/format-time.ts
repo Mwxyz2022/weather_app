@@ -10,7 +10,7 @@ export const formatTime = (
 		.unix(currentDate)
 		.utcOffset(timezoneOffset / 60)
 		.locale(language === 'ua' ? 'ua' : 'en')
-		.format(language === 'ua' ? 'D MMM, H:mm' : 'MMM D, h:mmA')
+		.format(language === 'ua' ? 'd MMM, H:mm' : 'MMM D, h:mmA')
 
 	return localTime
 }

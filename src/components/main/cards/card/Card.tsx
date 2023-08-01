@@ -166,11 +166,14 @@ const Card: FC<ICardProps> = ({ initData }) => {
 					</div>
 					<div className='chart__container'>
 						{isDayChart ? (
-							<ChartDay cardInfo={cardData.hourlyData} />
+							<ChartDay hourlyData={cardData.hourlyData} timezoneOffset={cardData.timezoneOffset} />
 						) : (
-							<ChartFiveDay cardInfo={cardData.dailyData} />
+							<ChartFiveDay
+								dailyData={cardData.dailyData}
+								timezoneOffset={cardData.timezoneOffset}
+							/>
 						)}
-						<button className='info__toggler' onClick={onChartHandler}>
+						<button className='chart__button' onClick={onChartHandler}>
 							{isDayChart ? t('five_day_forecast') : t('day_forecast')}
 						</button>
 					</div>
