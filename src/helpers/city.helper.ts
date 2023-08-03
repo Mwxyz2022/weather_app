@@ -16,8 +16,10 @@ export const getCityInfo = async (
 			const addressComponentsFirst = data.results[5].address_components
 			const addressComponentsNext = data.results[0].address_components
 
+			const prevLocation = cityFullInfo.location ? cityFullInfo.location : null
+
 			const location = {
-				// ...cityFullInfo.location,
+				...prevLocation,
 				[language]:
 					addressComponentsFirst.find(
 						component =>
@@ -33,8 +35,10 @@ export const getCityInfo = async (
 					)?.long_name
 			}
 
+			const prevCountry = cityFullInfo.country ? cityFullInfo.country : null
+
 			const country = {
-				// ...cityFullInfo.country,
+				...prevCountry,
 				[language]: addressComponentsFirst.find(component => component.types.includes('country'))
 					?.long_name
 			}
