@@ -6,18 +6,7 @@ export const getCityInfo = async (
 	lon: number,
 	languages: string[]
 ): Promise<ICityData> => {
-	let cityFullInfo: ICityData = {
-		id: 'adfdafdaf',
-		lat: 46.6558,
-		lon: 32.6178,
-		location: {
-			fr: 'Paris'
-		},
-		country: {
-			fr: 'France'
-		},
-		country_code: 'fr'
-	} as ICityData
+	let cityFullInfo: ICityData = {} as ICityData
 
 	for (const language of languages) {
 		try {
@@ -28,7 +17,7 @@ export const getCityInfo = async (
 			const addressComponentsNext = data.results[0].address_components
 
 			const location = {
-				...cityFullInfo.location,
+				// ...cityFullInfo.location,
 				[language]:
 					addressComponentsFirst.find(
 						component =>
@@ -45,7 +34,7 @@ export const getCityInfo = async (
 			}
 
 			const country = {
-				...cityFullInfo.country,
+				// ...cityFullInfo.country,
 				[language]: addressComponentsFirst.find(component => component.types.includes('country'))
 					?.long_name
 			}
