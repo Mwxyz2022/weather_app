@@ -1,22 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ResourceLanguage } from 'i18next'
 import { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
 import iconWeather from '../../../data/imageWeather'
-import { getCityAllInfo } from '../../../helpers/city.helper'
+import { getCityInfo } from '../../../helpers/city.helper'
 import { WeatherService } from '../../../service/weather.service'
 import { IFindCityData } from '../../../types/response.types'
-import { AppContextValue } from '../../../types/types'
+import { AppContextValue, ResourcesType } from '../../../types/types'
 import Notification from '../../modal/notification/Notification'
 
 import './search-bar.css'
-
-type ResourcesType = {
-	[key: string]: ResourceLanguage
-}
 
 const SearchBar: FC = () => {
 	const [isCityAlreadyAdded, setIsCityAlreadyAdded] = useState<boolean>(false)
@@ -58,7 +53,7 @@ const SearchBar: FC = () => {
 	}
 
 	const setCityData = async (lat: number, lon: number) => {
-		const cityData = await getCityAllInfo(lat, lon, languages)
+		const cityData = await getCityInfo(lat, lon, languages)
 
 		const newStorageCities = [...storedCities, cityData]
 
