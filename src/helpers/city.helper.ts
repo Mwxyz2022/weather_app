@@ -6,7 +6,18 @@ export const getCityInfo = async (
 	lon: number,
 	languages: string[]
 ): Promise<ICityData> => {
-	let cityFullInfo: ICityData = {} as ICityData
+	let cityFullInfo: ICityData = {
+		id: 'adfdafdaf',
+		lat: 46.6558,
+		lon: 32.6178,
+		location: {
+			fr: 'Paris'
+		},
+		country: {
+			fr: 'France'
+		},
+		country_code: 'fr'
+	} as ICityData
 
 	for (const language of languages) {
 		try {
