@@ -1,4 +1,5 @@
 import { FC, MouseEvent, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdOutlineClose } from 'react-icons/md'
 
@@ -16,6 +17,8 @@ interface IFavoriteItemProps {
 const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 	const { favoriteCities, setFavoriteCities } = useContext<AppContextValue>(AppContext)
 	const [isShow, setIsShow] = useState<boolean>(false)
+	const { i18n } = useTranslation()
+	const language = i18n.language
 
 	const { id: cityId } = cityData
 
@@ -37,12 +40,12 @@ const FavoriteItem: FC<IFavoriteItemProps> = ({ cityData }) => {
 				<span className='information_preview'>
 					<img
 						className='preview__icon'
-						src={`https://flagicons.lipis.dev/flags/4x3/${cityData.sys.country.toLowerCase()}.svg`}
+						src={`https://flagicons.lipis.dev/flags/4x3/${cityData.country_code}.svg`}
 						alt='flag'
 					/>
 
 					<p className='preview__name'>
-						{cityData.name}, {cityData.sys.country}
+						{cityData.location[language]}, {cityData.country[language]}
 					</p>
 				</span>
 				<span className='information__actions'>

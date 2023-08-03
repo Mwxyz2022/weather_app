@@ -15,7 +15,7 @@ const ChartDay: React.FC<IChartDayProps> = ({ hourlyData, timezoneOffset }) => {
 	const [chartKey, setChartKey] = useState(Math.random())
 	const { t, i18n } = useTranslation()
 
-	const timeFormat = i18n.language === 'ua' ? 'H:mm' : 'h A'
+	const timeFormat = i18n.language === 'uk' ? 'H:mm' : 'h A'
 
 	const dataForDay = hourlyData.slice(0, 24)
 

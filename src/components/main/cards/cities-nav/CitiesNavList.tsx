@@ -1,4 +1,5 @@
 import { FC, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { AiTwotoneStar } from 'react-icons/ai'
 import { VscListFlat } from 'react-icons/vsc'
 import { Link, useParams } from 'react-router-dom'
@@ -14,6 +15,8 @@ const CitiesNavList: FC = () => {
 	const [isOpenList, setIsOpenList] = useState<boolean>(false)
 	const { storedCities, favoriteCities } = useContext<AppContextValue>(AppContext)
 	const { cityId } = useParams()
+	const { i18n } = useTranslation()
+	const language = i18n.language
 
 	const screenWidth = useScreenWidth()
 	const isMobileScreen = screenWidth < 750
@@ -61,7 +64,7 @@ const CitiesNavList: FC = () => {
 							onClick={onListCityHandler}
 						>
 							<Link className='city-link' to={`/city/${city.id}`}>
-								{city.name}
+								{city.location[language]}
 								{isFavoriteCity && (
 									<AiTwotoneStar
 										size={15}

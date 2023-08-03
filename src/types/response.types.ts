@@ -55,14 +55,46 @@ export interface WeatherData {
 interface Country {
 	country: string
 }
-export interface ICityData {
+export interface IFindCityData {
 	id: number
 	name: string
 	coord: Coord
+	main: {
+		temp: number
+	}
+	weather: WeatherDescription[]
 	sys: Country
 }
 
 export interface ChartFormItem {
 	period: string
 	temp: number
+}
+
+interface AddressComponent {
+	long_name: string
+	short_name: string
+	types: string[]
+}
+
+interface Result {
+	address_components: AddressComponent[]
+	place_id: string
+}
+
+export interface IGeoResponse {
+	results: Result[]
+}
+
+export interface ICityData {
+	id: string
+	lat: number
+	lon: number
+	location: {
+		[key: string]: string | undefined
+	}
+	country: {
+		[key: string]: string | undefined
+	}
+	country_code: string | undefined
 }

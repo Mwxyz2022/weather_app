@@ -5,7 +5,7 @@ import { AppContext } from '../../../../../context/AppContext'
 import { AppContextValue } from '../../../../../types/types'
 
 interface IFavoriteButtonProps {
-	cityId: number
+	cityId: string
 }
 
 const FavoriteButton: FC<IFavoriteButtonProps> = ({ cityId }) => {
