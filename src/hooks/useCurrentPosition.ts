@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AppContext } from '../context/AppContext'
-import { findCityWithName, getCityName } from '../helpers/city.helper'
+import { getCityAllInfo } from '../helpers/city.helper'
 import { AppContextValue } from '../types/types'
-import { findClosestCity } from '../utils/closest-city'
 
 import { useGeolocation } from './useGeolocation'
 
@@ -14,6 +14,17 @@ export const useCurrentPosition = () => {
 	const { storedCities, setStoredCities } = useContext<AppContextValue>(AppContext)
 	const { cityId } = useParams()
 	const navigate = useNavigate()
+	const { i18n } = useTranslation()
+	const languages = [...i18n.languages]
+
+	const setCityInfo = async (lat = coordinates.lat, lon = coordinates.lon) => {
+		if (!storedCities.length && loaded) {
+			const cityData = await getCityAllInfo(lat, lon, languages)
+			localStorage.setItem('cities', JSON.stringify([cityData]))
+			setStoredCities([cityData])
+			navigate(`/city/${cityData.id}`)
+		}
+	}
 
 	useEffect(() => {
 		if (storedCities.length && !cityId) {
@@ -26,24 +37,6 @@ export const useCurrentPosition = () => {
 	}, [cityId])
 
 	useEffect(() => {
-		if (!storedCities.length && loaded) {
-			const lat = coordinates.lat
-			const lon = coordinates.lon
-
-			;(async () => {
-				const cityName = await getCityName(lat, lon)
-				const citiesList = await findCityWithName(cityName)
-				const closestCity = findClosestCity(citiesList, lat, lon)
-
-				if (closestCity) {
-					localStorage.setItem('cities', JSON.stringify([closestCity]))
-					setStoredCities([closestCity])
-
-					navigate(`/city/${closestCity.id}`)
-				} else {
-					console.error('No closest city found.')
-				}
-			})()
-		}
+		setCityInfo()
 	}, [loaded])
 }

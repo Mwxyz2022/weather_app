@@ -12,7 +12,7 @@ import { I18nextProvider } from 'react-i18next'
 import { RouterProvider } from 'react-router-dom'
 
 import './assets/index.css'
-import i18n from './i18n/_i18n.js'
+import i18n from './i18n/_i18n'
 import router from './router/router'
 import reportWebVitals from './test/reportWebVitals'
 

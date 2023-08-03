@@ -9,8 +9,8 @@ export const formatTime = (
 	const localTime = moment
 		.unix(currentDate)
 		.utcOffset(timezoneOffset / 60)
-		.locale(language === 'ua' ? 'ua' : 'en')
-		.format(language === 'ua' ? 'd MMM, H:mm' : 'MMM D, h:mmA')
+		.locale(language === 'uk' ? 'uk' : 'en')
+		.format(language === 'uk' ? 'd MMM, H:mm' : 'MMM D, h:mmA')
 
 	return localTime
 }

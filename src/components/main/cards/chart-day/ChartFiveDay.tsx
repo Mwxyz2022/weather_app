@@ -15,7 +15,7 @@ const ChartFiveDay: React.FC<IChartFiveDayProps> = ({ dailyData, timezoneOffset 
 	const [chartKey, setChartKey] = useState(Math.random())
 	const { t, i18n } = useTranslation()
 
-	const dateFormat = i18n.language === 'ua' ? 'D MMM' : 'MMM D'
+	const dateFormat = i18n.language === 'uk' ? 'D MMM' : 'MMM D'
 
 	const dataForFiveDay = dailyData.slice(0, 5)
 

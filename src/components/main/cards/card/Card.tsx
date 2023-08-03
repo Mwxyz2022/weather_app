@@ -36,11 +36,12 @@ const Card: FC<ICardProps> = ({ initData }) => {
 	const [cardData, setCardData] = useState<ICardData | null>(null)
 	const { pathname } = useLocation()
 	const { t, i18n } = useTranslation()
+	const language = i18n.language
 
 	const isCityPage = pathname.startsWith('/city/')
 
 	const { id: cityId } = initData
-	const { lat, lon } = initData.coord
+	const { lat, lon } = initData
 
 	const onChartHandler = () => {
 		setIsDayChart(!isDayChart)
@@ -90,11 +91,11 @@ const Card: FC<ICardProps> = ({ initData }) => {
 								{isCityPage && (
 									<div className='data__location'>
 										<p>
-											{initData.name}, {initData.sys.country}
+											{initData.location[language]}, {initData.country[language]}
 										</p>
 										<img
 											className='location__icon'
-											src={`https://flagicons.lipis.dev/flags/4x3/${initData.sys.country.toLowerCase()}.svg`}
+											src={`https://flagicons.lipis.dev/flags/4x3/${initData.country_code}.svg`}
 											alt='flag'
 										/>
 									</div>

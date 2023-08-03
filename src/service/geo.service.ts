@@ -1,18 +1,23 @@
 import { AxiosResponse } from 'axios'
 
-import { geoApi } from '../api/api'
+import { axiosGeocodingApi } from '../api/api'
+import { IGeoResponse } from '../types/response.types'
 
-const appid = process.env.REACT_APP_MY_KEY
+const appGeocodingKey = process.env.REACT_APP_GEOCODING_API_KEY
 
 export const GeoService = {
-	async getCityInfo(lat: number, lon: number): Promise<AxiosResponse> {
+	async getCityInfo(
+		lat: number,
+		lon: number,
+		language: string
+	): Promise<AxiosResponse<IGeoResponse>> {
 		try {
-			const response = await geoApi.get(
-				`geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${appid}`
+			const response = await axiosGeocodingApi.get(
+				`json?latlng=${lat},${lon}&key=${appGeocodingKey}&language=${language}`
 			)
 			return response
 		} catch (error: any) {
-			throw new Error('Error fetching с data: ' + error.message)
+			throw new Error('Error fetching geolocation data: ' + error.message)
 		}
 	}
 }

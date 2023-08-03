@@ -1,16 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ResourceLanguage } from 'i18next'
 import { ChangeEvent, FC, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
 import iconWeather from '../../../data/imageWeather'
+import { getCityAllInfo } from '../../../helpers/city.helper'
 import { WeatherService } from '../../../service/weather.service'
-import { ICityData } from '../../../types/response.types'
+import { IFindCityData } from '../../../types/response.types'
 import { AppContextValue } from '../../../types/types'
 import Notification from '../../modal/notification/Notification'
 
 import './search-bar.css'
+
+type ResourcesType = {
+	[key: string]: ResourceLanguage
+}
 
 const SearchBar: FC = () => {
 	const [isCityAlreadyAdded, setIsCityAlreadyAdded] = useState<boolean>(false)
@@ -20,23 +26,25 @@ const SearchBar: FC = () => {
 
 	const [value, setValue] = useState<string>('')
 	const [search, setSearch] = useState<string>('')
-	const [cities, setCities] = useState<ICityData[]>([])
+	const [citiesList, setCitiesList] = useState<IFindCityData[]>([])
 
 	const navigate = useNavigate()
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
+
+	const resources = i18n.options.resources as ResourcesType
+	const languages = Object.keys(resources)
 
 	const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value)
 	}
 
-	const getCity = async () => {
-		if (search.length <= 2 && cities.length) {
-			setCities([])
+	const getCitiesList = async () => {
+		if (search.length <= 2 && citiesList.length) {
+			setCitiesList([])
 		} else if (search.length > 2) {
 			try {
-				const { data: citiesData } = await WeatherService.findByCity(search)
-
-				setCities(citiesData.list)
+				const { data: citiesData } = await WeatherService.findCityByName(search)
+				setCitiesList(citiesData.list)
 			} catch (error) {
 				console.error(error)
 			}
@@ -46,31 +54,40 @@ const SearchBar: FC = () => {
 	const clearInput = () => {
 		setValue('')
 		setSearch('')
-		setCities([])
+		setCitiesList([])
 	}
 
-	const selectCityHandler = (city: ICityData) => {
-		const cityExists = storedCities.some(storageCity => storageCity.id === city.id)
+	const setCityData = async (lat: number, lon: number) => {
+		const cityData = await getCityAllInfo(lat, lon, languages)
 
-		if (cityExists) {
-			setIsCityAlreadyAdded(true)
-			return
-		}
+		const newStorageCities = [...storedCities, cityData]
 
+		localStorage.setItem('cities', JSON.stringify(newStorageCities))
+		setStoredCities(newStorageCities)
+		clearInput()
+		navigate(`/city/${cityData.id}`)
+	}
+
+	const selectCityHandler = (city: IFindCityData) => {
 		if (storedCities.length === 5) {
 			setIsCityLimitExceeded(true)
 			clearInput()
 			return
 		}
 
-		const newStorageCities = [...storedCities, city]
+		const cityExists = storedCities.some(
+			storageCity =>
+				storageCity.country_code === city.sys.country.toLowerCase() &&
+				storageCity.location.en === city.name
+		)
 
-		localStorage.setItem('cities', JSON.stringify(newStorageCities))
+		if (cityExists) {
+			setIsCityAlreadyAdded(true)
+			return
+		}
+		const { lat, lon } = city.coord
 
-		setStoredCities(newStorageCities)
-		clearInput()
-
-		navigate(`/city/${city.id}`)
+		setCityData(lat, lon)
 	}
 
 	useEffect(() => {
@@ -84,11 +101,11 @@ const SearchBar: FC = () => {
 	}, [value])
 
 	useEffect(() => {
-		getCity()
+		getCitiesList()
 	}, [search])
 
 	useEffect(() => {
-		const items = document.querySelectorAll('.list-item') as NodeListOf<HTMLElement>
+		const items = document.querySelectorAll('.list__item') as NodeListOf<HTMLElement>
 
 		items.forEach((item, index) => {
 			if (items.length === 1) {
@@ -97,7 +114,7 @@ const SearchBar: FC = () => {
 
 			item.style.animationDelay = `${index * 0.1}s`
 		})
-	}, [cities])
+	}, [citiesList])
 
 	return (
 		<>
@@ -109,11 +126,9 @@ const SearchBar: FC = () => {
 					onChange={searchHandler}
 					value={value}
 				/>
-				{!!cities.length && (
+				{!!citiesList.length && (
 					<ul className='search__list'>
-						{cities.map((city: any) => {
-							console.log(city)
-
+						{citiesList.map((city: IFindCityData) => {
 							return (
 								<li key={city.id} className='list__items' onClick={() => selectCityHandler(city)}>
 									<span className='item__info'>

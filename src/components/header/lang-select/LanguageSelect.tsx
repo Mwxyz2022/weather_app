@@ -7,7 +7,7 @@ import { initLanguage } from '../../../utils/local-storage/init-storage'
 import './language-select.css'
 
 const LanguageSelect: FC = () => {
-	const languages = ['ua', 'en']
+	const languages = ['uk', 'en']
 
 	const [currentLang, setCurrentLang] = useState<string>(initLanguage())
 	const [isShowAllLang, setIsShowAllLang] = useState(false)
