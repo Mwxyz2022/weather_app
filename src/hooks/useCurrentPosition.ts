@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AppContext } from '../context/AppContext'
-import { getCityAllInfo } from '../helpers/city.helper'
+import { getCityInfo } from '../helpers/city.helper'
 import { AppContextValue } from '../types/types'
 
 import { useGeolocation } from './useGeolocation'
@@ -19,7 +19,7 @@ export const useCurrentPosition = () => {
 
 	const setCityInfo = async (lat = coordinates.lat, lon = coordinates.lon) => {
 		if (!storedCities.length && loaded) {
-			const cityData = await getCityAllInfo(lat, lon, languages)
+			const cityData = await getCityInfo(lat, lon, languages)
 			localStorage.setItem('cities', JSON.stringify([cityData]))
 			setStoredCities([cityData])
 			navigate(`/city/${cityData.id}`)

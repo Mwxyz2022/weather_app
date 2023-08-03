@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AppContext } from '../../../context/AppContext'
 import iconWeather from '../../../data/imageWeather'
-import { getCityAllInfo } from '../../../helpers/city.helper'
+import { getCityInfo } from '../../../helpers/city.helper'
 import { WeatherService } from '../../../service/weather.service'
 import { IFindCityData } from '../../../types/response.types'
 import { AppContextValue } from '../../../types/types'
@@ -58,7 +58,7 @@ const SearchBar: FC = () => {
 	}
 
 	const setCityData = async (lat: number, lon: number) => {
-		const cityData = await getCityAllInfo(lat, lon, languages)
+		const cityData = await getCityInfo(lat, lon, languages)
 
 		const newStorageCities = [...storedCities, cityData]
 
